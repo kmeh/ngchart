@@ -20,84 +20,76 @@
 
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
+using System.Text;
 
 namespace NGChart
 {
     /// <summary>
-    /// Class with chart definition
+    /// Data set color
     /// </summary>
-    public class Chart
+    public class ChartColors : ChartParam
     {
-        #region Constants
-
-        private const string c_urlService = "http://chart.apis.google.com/chart?";
-
-        #endregion
-
         #region Properties
 
-        /// <summary>
-        /// Chart parameters
-        /// </summary>
-        public ChartParams Params
+        public IEnumerable<Color> Colors
         {
-            get { return _params; }
+            get { return _colors; }
+            set { _colors = value; }
         }
-        private readonly ChartParams _params = new ChartParams();
-
-        #endregion
-
-        #region Constructor
+        private IEnumerable<Color> _colors;
 
         /// <summary>
-        /// Constructor
+        /// Name of the parameter
         /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data)
+        public override string Name
         {
-            _params.Add(type);
-            _params.Add(size);
-            _params.Add(data);
+            get { return "chco"; }
         }
 
         /// <summary>
-        /// Constructor
+        /// Parameter data
         /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data, Color color)
+        public override string Data
         {
-            _params.Add(type);
-            _params.Add(size);
-            _params.Add(data);
-            _params.Add(new ChartColors(color));
-        }
+            get
+            {
+                StringBuilder builder = new StringBuilder(128);
+                foreach (Color color in Colors)
+                {
+                    ColorToRGBA(builder, color);
+                    builder.Append(',');
+                }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data, IEnumerable<Color> colors)
-        {
-            _params.Add(type);
-            _params.Add(size);
-            _params.Add(data);
-            _params.Add(new ChartColors(colors));
+                if (builder.Length > 0) builder.Length--;
+
+                return builder.ToString();
+            }
         }
 
         #endregion
 
-
-        #region Overrides
-
-        public override string ToString()
+        private static void ColorToRGBA(StringBuilder builder, Color color)
         {
-            return c_urlService + Params.ToString();
+            // google wants color in RGBA format
+            int rgba = color.ToArgb();
+            rgba <<= 8;
+            rgba |= color.A;
+
+            builder.Append(rgba.ToString("X8", CultureInfo.InvariantCulture));
+        }
+
+        #region Constructors
+
+        public ChartColors(Color color)
+        {
+            _colors = new Color[] { color };
+        }
+
+
+        public ChartColors(IEnumerable<Color> colors)
+        {
+            _colors = colors;
         }
 
         #endregion

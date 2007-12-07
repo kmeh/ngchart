@@ -28,6 +28,8 @@ namespace NGChart
     /// </summary>
     public abstract class ChartParam
     {
+        #region Abstract stuff
+
         /// <summary>
         /// Name of the parameter
         /// </summary>
@@ -37,6 +39,26 @@ namespace NGChart
         /// Parameter data
         /// </summary>
         public abstract string Data { get; }
+
+        #endregion
+
+        /// <summary>
+        /// Render contents to string builder
+        /// </summary>
+        /// <param name="builder">The string builder</param>
+        public void Render(StringBuilder builder)
+        {
+            builder.Append(Name);
+            builder.Append('=');
+            builder.Append(Data);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder(1024);
+            Render(builder);
+            return builder.ToString();
+        }
     }
 
     /// <summary>
@@ -50,9 +72,7 @@ namespace NGChart
 
             foreach (ChartParam param in this)
             {
-                builder.Append(param.Name);
-                builder.Append('=');
-                builder.Append(param.Data);
+                param.Render(builder);
                 builder.Append('&');
             }
 
