@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="G:\Projects\Charts\NGChartTests\unittests.nunit" total="12" failures="0" not-run="0" date="2007-12-07" time="14:46:01">
+  <environment nunit-version="2.4.1.0" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="G:\Projects\Charts\NGChartTests\bin\Debug" machine-name="EUGENER" user="eugene" user-domain="EUGENER" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite name="G:\Projects\Charts\NGChartTests\unittests.nunit" success="True" time="0.125" asserts="0">
+    <results>
+      <test-suite name="G:\Projects\Charts\NGChartTests\bin\Debug\NGChartTests.dll" success="True" time="0.125" asserts="0">
+        <results>
+          <test-suite name="NGChartTests" success="True" time="0.125" asserts="0">
+            <results>
+              <test-suite name="CommonTests" success="True" time="0.047" asserts="0">
+                <results>
+                  <test-case name="NGChartTests.CommonTests.LineChart" executed="True" success="True" time="0.047" asserts="1" />
+                </results>
+              </test-suite>
+              <test-suite name="EncodingTests" success="True" time="0.016" asserts="0">
+                <results>
+                  <test-case name="NGChartTests.EncodingTests.TestSimpleEncoding" executed="True" success="True" time="0.000" asserts="6" />
+                  <test-case name="NGChartTests.EncodingTests.TestSimpleEncodingInvalid1" executed="True" success="True" time="0.000" asserts="0" />
+                  <test-case name="NGChartTests.EncodingTests.TestSimpleEncodingInvalid2" executed="True" success="True" time="0.000" asserts="0" />
+                  <test-case name="NGChartTests.EncodingTests.TestSimpleEncodingSet" executed="True" success="True" time="0.000" asserts="1" />
+                  <test-case name="NGChartTests.EncodingTests.TestSimpleEncodingSets" executed="True" success="True" time="0.000" asserts="1" />
+                </results>
+              </test-suite>
+              <test-suite name="SizeTests" success="True" time="0.016" asserts="0">
+                <results>
+                  <test-case name="NGChartTests.SizeTests.TestInvalidHeight1" executed="True" success="True" time="0.016" asserts="0" />
+                  <test-case name="NGChartTests.SizeTests.TestInvalidHeight2" executed="True" success="True" time="0.000" asserts="0" />
+                  <test-case name="NGChartTests.SizeTests.TestInvalidHeight3" executed="True" success="True" time="0.000" asserts="0" />
+                  <test-case name="NGChartTests.SizeTests.TestInvalidWidth1" executed="True" success="True" time="0.000" asserts="0" />
+                  <test-case name="NGChartTests.SizeTests.TestInvalidWidth2" executed="True" success="True" time="0.000" asserts="0" />
+                  <test-case name="NGChartTests.SizeTests.TestInvalidWidth3" executed="True" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
