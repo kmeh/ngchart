@@ -18,6 +18,7 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System.Drawing;
 using NGChart;
 
 namespace Charts
@@ -28,7 +29,10 @@ namespace Charts
 
         public static string Get()
         {
-           Chart chart = new Chart(ChartType.Line, new ChartSize(200, 125), new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}));
+           Chart chart = new Chart(ChartType.Line, 
+                                    new ChartSize(200, 125), 
+                                    new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
+                                    Color.DodgerBlue);
 
            return chart.ToString();
         }
