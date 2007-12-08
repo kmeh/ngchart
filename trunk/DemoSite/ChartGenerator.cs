@@ -29,10 +29,19 @@ namespace Charts
 
         public static string Get()
         {
-           Chart chart = new Chart(ChartType.Line, 
-                                    new ChartSize(200, 125), 
-                                    new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
-                                    Color.DodgerBlue);
+           //Chart chart = new Chart(ChartType.Line, 
+           //                         new ChartSize(200, 125), 
+           //                         new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
+           //                         Color.DodgerBlue);
+
+            Chart chart = new Chart(ChartType.VerticalGroupedChart,
+                                     new ChartSize(200, 125),
+                                     new ChartData(new int[][]
+                                                       {
+                                                           new int[] { 0, 1, 25, 26, 51 }, 
+                                                           new int[] { 7, 12, 60, 57, 4 }
+                                                    }),
+                                     new Color[] { Color.DodgerBlue, Color.YellowGreen });
 
            return chart.ToString();
         }

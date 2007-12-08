@@ -23,46 +23,74 @@ namespace NGChart
     /// <summary>
     /// Type of the chart
     /// </summary>
-    public partial class ChartType : ChartParam
+    public partial class ChartType     
     {
-        #region Private stuff
-
-        private readonly string _type;
-
-        #endregion
-
-        #region Properties
+        #region Line charts
 
         /// <summary>
-        /// Name of the parameter
+        /// Line chart
         /// </summary>
-        /// <value></value>
-        public override string Name
+        /// <remarks>http://code.google.com/apis/chart/#line_charts</remarks>
+        public static ChartType Line
         {
-            get { return "cht"; }
-        }
-
-        /// <summary>
-        /// Parameter data
-        /// </summary>
-        /// <value></value>
-        public override string Data
-        {
-            get { return _type; }
+            get
+            {
+                return new ChartType("lc");
+            }
         }
 
         #endregion
 
+        #region Bar charts
+
+        // ER: TODO: change it to enums
+
+        // http://code.google.com/apis/chart/#bar_charts
+
         /// <summary>
-        /// Protected constructor
+        /// Horizontal bar chart. Multiple data sets are grouped.
         /// </summary>
-        /// <param name="type">Chart type</param>
-        /// <remarks>
-        /// Should not be accessible from the outside.
-        /// </remarks>
-        protected ChartType(string type)
+        public static ChartType HorizontalGroupedChart
         {
-            _type = type;
+            get
+            {
+                return new ChartType("bhg");
+            }
         }
+
+        /// <summary>
+        /// Horizontal bar chart. Multiple data sets are stacked.
+        /// </summary>
+        public static ChartType HorizontalStackedChart
+        {
+            get
+            {
+                return new ChartType("bhs");
+            }
+        }
+
+        /// <summary>
+        /// Vertical bar chart. Multiple data sets are grouped.
+        /// </summary>
+        public static ChartType VerticalGroupedChart
+        {
+            get
+            {
+                return new ChartType("bvg");
+            }
+        }
+
+        /// <summary>
+        /// Vertical bar chart. Multiple data sets are stacked.
+        /// </summary>
+        public static ChartType VerticalStackedChart
+        {
+            get
+            {
+                return new ChartType("bvs");
+            }
+        }
+
+        #endregion
     }
 }
