@@ -35,5 +35,14 @@ namespace NGChartTests
             Chart chart = new Chart(ChartType.Line, c_defaultSize, c_defaultData);
             Assert.IsTrue(chart.ToString().Contains("cht=lc"));
         }
+
+        [Test]
+        public void TestCharts()
+        {
+            Assert.AreEqual(ChartType.HorizontalGroupedChart.ToString(), "cht=bhg");
+            Assert.AreEqual(ChartType.HorizontalStackedChart.ToString(), "cht=bhs");
+            Assert.AreEqual(ChartType.VerticalGroupedChart.ToString(), "cht=bvg");
+            Assert.AreEqual(ChartType.VerticalStackedChart.ToString(), "cht=bvs");
+        }
     }
 }
