@@ -40,6 +40,7 @@
     <Compile Include="Chart.cs" />
     <Compile Include="ChartColors.cs" />
     <Compile Include="ChartData.cs" />
+    <Compile Include="ChartLegend.cs" />
     <Compile Include="ChartParam.cs" />
     <Compile Include="ChartSize.cs" />
     <Compile Include="ChartTitle.cs" />

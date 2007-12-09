@@ -18,6 +18,7 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
@@ -62,6 +63,43 @@ namespace NGChart
             builder.Replace(' ', '+');
         }
 
+        /// <summary>
+        /// Appends string representation of items in the collection to the string builder.
+        /// Separate items with the separator.
+        /// </summary>
+        /// <typeparam name="TItem">Collection item type</typeparam>
+        /// <param name="builder">StringBuilder to fill up</param>
+        /// <param name="items">Collection to process</param>
+        /// <param name="separator">Separator</param>
+        public static void AppendWithSeparator<TItem>(StringBuilder builder, IEnumerable<TItem> items, string separator)
+        {
+            if (null !=items)
+            {
+                foreach (TItem label in items)
+                {
+                    builder.Append(label);
+                    builder.Append(separator);
+                }
+
+                if (builder.Length > separator.Length)
+                    builder.Length -= separator.Length;
+            }
+        }
+
+        /// <summary>
+        /// Generate string from collection of items.
+        /// Separate items with the separator.
+        /// </summary>
+        /// <typeparam name="TItem">Collection item type</typeparam>
+        /// <param name="items">Collection to process</param>
+        /// <param name="separator">Separator</param>
+        /// <returns>Generated string</returns>
+        public static string GenerateString<TItem>(IEnumerable<TItem> items, string separator)
+        {
+            StringBuilder builder = new StringBuilder(1024);
+            AppendWithSeparator(builder, items, separator);
+            return builder.ToString();
+        }
 
     }
 }

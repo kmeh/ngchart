@@ -87,6 +87,16 @@ namespace NGChart
         }
         private ChartTitle _title;
 
+        /// <summary>
+        /// Chart legend
+        /// </summary>
+        public ChartLegend Legend
+        {
+            get { return _legend; }
+            set { _legend = value; }
+        }
+        private ChartLegend _legend;
+
         #endregion
 
         #region Constructor

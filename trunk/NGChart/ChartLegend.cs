@@ -18,48 +18,55 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Text;
-using NGChart;
-using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
-namespace NGChartTests
+namespace NGChart
 {
-    [TestFixture]
-    public class UtilsTests
+    /// <summary>
+    /// Legend for a chart
+    /// </summary>
+    /// <remarks>
+    /// http://code.google.com/apis/chart/#chdl
+    /// </remarks>
+    public class ChartLegend : ChartParam
     {
-        [Test]
-        public void TestTitleEncoding()
+        #region Properties
+
+        /// <summary>
+        /// Name of the parameter
+        /// </summary>
+        public override string Name
         {
-            StringBuilder builder = new StringBuilder(256);
-
-            builder.Append("foo");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo");
-
-            builder.Length = 0;
-
-            builder.Append("foo bar");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo+bar");
-
-            builder.Length = 0;
-
-            builder.Append("foo bar baz");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo+bar+baz");
-
-            builder.Length = 0;
-
-            builder.Append("foo\nbar\r\nbaz");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo|bar|baz");
+            get { return "chdl"; }
         }
 
-        [Test]
-        public void TestGenerateString()
+        /// <summary>
+        /// Parameter data
+        /// </summary>
+        public override string Data
         {
-            string result = Utils.GenerateString(new int[] {1, 2, 3}, "foo");
-            Assert.AreEqual(result, "1foo2foo3");
+            get
+            {
+                return Utils.GenerateString(Names, "|");
+            }
+        }
+
+        /// <summary>
+        /// Legend names
+        /// </summary>
+        public IEnumerable<string> Names
+        {
+            get { return _names; }
+            set { _names = value; }
+        }
+        private IEnumerable<string> _names;
+
+        #endregion
+
+        public ChartLegend(IEnumerable<string> names)
+        {
+            _names = names;
         }
     }
 }
