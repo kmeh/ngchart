@@ -18,50 +18,30 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System;
-using System.Drawing;
 using NGChart;
 using NUnit.Framework;
+using System.Drawing;
 
 namespace NGChartTests
 {
     [TestFixture]
-    public class PieChartTests
+    public class TitleTests
     {
         [Test]
-        public void Pie3DTest()
+        public void TestTitle()
         {
-            PieChart chart = new PieChart(PieChartType.Pie3D, 
-                         new ChartSize(300, 200),
-                         new ChartData(new int[] { 25, 28, 53 })
-                         );
-
-            Color[] colors = new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon };
-            chart.Colors = new ChartColors(colors);
-
-            string[] colorNames = Array.ConvertAll<Color, string>(colors, 
-                                        delegate(Color color)
-                                            {
-                                                return color.ToKnownColor().ToString();
-                                            });
-
-            chart.Labels = new PieChartLabels(colorNames);
-
-            string chartString = chart.ToString();
-
-            Assert.IsTrue(chartString.Contains("cht=p3"));
-            Assert.IsTrue(chartString.Contains("chs=300x200"));
-            Assert.IsTrue(chartString.Contains("s:Zc1"));
-            Assert.IsTrue(chartString.Contains("chco=1E90FF,DA70D6,E9967A"));
-            Assert.IsTrue(chartString.Contains("chl=DodgerBlue|Orchid|DarkSalmon"));
-            
+            ChartTitle title = new ChartTitle("one line\nbreak");
+            Assert.AreEqual(title.ToString(), "chtt=one+line|break");
         }
 
-        public void TestChartLabels()
+        [Test]
+        public void TestTitleWithFont()
         {
-            PieChartLabels labels = new PieChartLabels(new string[] {"foo", null, "bar"});
-            Assert.AreEqual(labels.Name, "chl");
-            Assert.AreEqual(labels.Data, "foo||bar");
+            ChartTitle title = new ChartTitle("two\nlines\r\nbreaks test", Color.Green, 15);
+
+            string titleString = title.ToString();
+            Assert.IsTrue(titleString.Contains("chtt=two|lines|breaks+test"));
+            Assert.IsTrue(titleString.Contains("chts=008000,15"));
         }
     }
 }

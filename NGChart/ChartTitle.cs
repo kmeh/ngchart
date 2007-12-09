@@ -18,33 +18,29 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Text;
 
 namespace NGChart
 {
     /// <summary>
-    /// Data set color
+    /// Title of the chart
     /// </summary>
-    public class ChartColors : ChartParam
+    /// <remarks>
+    /// http://code.google.com/apis/chart/#chtt
+    /// </remarks>
+    public class ChartTitle : ChartParam
     {
         #region Properties
 
-        public IEnumerable<Color> Colors
-        {
-            get { return _colors; }
-            set { _colors = value; }
-        }
-        private IEnumerable<Color> _colors;
+        #region Overrides
 
         /// <summary>
         /// Name of the parameter
         /// </summary>
         public override string Name
         {
-            get { return "chco"; }
+            get { return "chtt"; }
         }
 
         /// <summary>
@@ -54,34 +50,69 @@ namespace NGChart
         {
             get
             {
-                StringBuilder builder = new StringBuilder(128);
-                foreach (Color color in Colors)
+                StringBuilder builder = new StringBuilder(Title, 256);
+                Utils.EncodeTitle(builder);
+
+                if (FontColor.HasValue && fontSize.HasValue)
                 {
-                    Utils.AppendAsRGBA(builder, color);
+                    builder.Append("&chts=");
+                    Utils.AppendAsRGBA(builder, FontColor.Value);
                     builder.Append(',');
+                    builder.Append(fontSize.Value);
                 }
-
-                if (builder.Length > 0) builder.Length--;
-
                 return builder.ToString();
             }
         }
 
         #endregion
 
+        /// <summary>
+        /// Chart title
+        /// </summary>
+        public string Title
+        {
+            get { return _title; }
+            set { _title = value; }
+        }
+        private string _title;
+
+        /// <summary>
+        /// Font color for the chart title
+        /// </summary>
+        public Color? FontColor
+        {
+            get { return _fontColor; }
+            set { _fontColor = value; }
+        }
+        private Color? _fontColor;
+
+        /// <summary>
+        /// Font size for the chart title
+        /// </summary>
+        public int? fontSize
+        {
+            get { return _fontSize; }
+            set { _fontSize = value; }
+        }
+        private int? _fontSize;
+
+        #endregion
+
         #region Constructors
 
-        public ChartColors(Color color)
+        public ChartTitle(string title)
         {
-            _colors = new Color[] { color };
+            _title = title;
         }
 
-
-        public ChartColors(IEnumerable<Color> colors)
+        public ChartTitle(string title, Color fontColor, int fontSize)
         {
-            _colors = colors;
+            _title = title;
+            _fontSize = fontSize;
+            _fontColor = fontColor;
         }
 
         #endregion
+
     }
 }

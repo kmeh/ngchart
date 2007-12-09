@@ -30,6 +30,13 @@ namespace Charts
 
         public static string Get()
         {
+            //Chart chart = new Chart(ChartType.PieChart3D,
+            //                         new ChartSize(200, 125),
+            //                         new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
+
+            //chart.Colors = new ChartColors(Color.DodgerBlue);
+            //chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 16);
+
             //PieChart chart = new PieChart(PieChartType.Pie3D,
             //             new ChartSize(400, 150),
             //             new ChartData(new int[] { 25, 28, 53 })
@@ -48,10 +55,10 @@ namespace Charts
 
             //chart.Labels = new PieChartLabels(colorNames);
 
-PieChart chart = new PieChart(PieChartType.Pie2D, 
-             new ChartSize(300, 200),
-             new ChartData(new int[] { 25, 28, 12 })
-             );
+            //PieChart chart = new PieChart(PieChartType.Pie2D, 
+            //                             new ChartSize(300, 200),
+            //                             new ChartData(new int[] { 25, 28, 12 })
+            //                             );
 
             //chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon });
 
@@ -60,10 +67,11 @@ PieChart chart = new PieChart(PieChartType.Pie2D,
            //                         new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
            //                         Color.DodgerBlue);
 
-            //Chart chart = new Chart(ChartType.Line, 
-           //                         new ChartSize(200, 125), 
-           //                         new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
-           //                         Color.DodgerBlue);
+            Chart chart = new Chart(ChartType.Line,
+                                    new ChartSize(200, 125),
+                                    new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
+            chart.Colors = new ChartColors(Color.DodgerBlue);
+            chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 10);
 
             //Chart chart = new Chart(ChartType.VerticalGroupedChart,
             //                         new ChartSize(200, 125),

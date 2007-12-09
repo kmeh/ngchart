@@ -18,50 +18,50 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System;
 using System.Drawing;
-using NGChart;
-using NUnit.Framework;
+using System.Text;
 
-namespace NGChartTests
+namespace NGChart
 {
-    [TestFixture]
-    public class PieChartTests
+    /// <summary>
+    /// Utilities class
+    /// </summary>
+    public static class Utils
     {
-        [Test]
-        public void Pie3DTest()
+        /// <summary>
+        /// Append color representation to the string builder
+        /// </summary>
+        /// <param name="builder">The string builder</param>
+        /// <param name="color">Color to convert</param>
+        public static void AppendAsRGBA(StringBuilder builder, Color color)
         {
-            PieChart chart = new PieChart(PieChartType.Pie3D, 
-                         new ChartSize(300, 200),
-                         new ChartData(new int[] { 25, 28, 53 })
-                         );
+            // google wants color in RGBA format
+            builder.AppendFormat("{0:X2}", color.R);
+            builder.AppendFormat("{0:X2}", color.G);
+            builder.AppendFormat("{0:X2}", color.B);
 
-            Color[] colors = new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon };
-            chart.Colors = new ChartColors(colors);
-
-            string[] colorNames = Array.ConvertAll<Color, string>(colors, 
-                                        delegate(Color color)
-                                            {
-                                                return color.ToKnownColor().ToString();
-                                            });
-
-            chart.Labels = new PieChartLabels(colorNames);
-
-            string chartString = chart.ToString();
-
-            Assert.IsTrue(chartString.Contains("cht=p3"));
-            Assert.IsTrue(chartString.Contains("chs=300x200"));
-            Assert.IsTrue(chartString.Contains("s:Zc1"));
-            Assert.IsTrue(chartString.Contains("chco=1E90FF,DA70D6,E9967A"));
-            Assert.IsTrue(chartString.Contains("chl=DodgerBlue|Orchid|DarkSalmon"));
-            
+            if (color.A != byte.MaxValue)
+            {
+                builder.AppendFormat("{0:X2}", color.A);
+            }
         }
 
-        public void TestChartLabels()
+        /// <summary>
+        /// Make title formatted according to specs:
+        ///  Specify a space with a plus sign (+).
+        ///  Use a pipe character (|) to force a line break.
+        /// </summary>
+        /// <param name="builder">Builder to process</param>
+        /// <remarks>
+        /// http://code.google.com/apis/chart/#chtt
+        /// </remarks>
+        public static void EncodeTitle(StringBuilder builder)
         {
-            PieChartLabels labels = new PieChartLabels(new string[] {"foo", null, "bar"});
-            Assert.AreEqual(labels.Name, "chl");
-            Assert.AreEqual(labels.Data, "foo||bar");
+            builder.Replace("\r\n", "\n");
+            builder.Replace('\n', '|');
+            builder.Replace(' ', '+');
         }
+
+
     }
 }
