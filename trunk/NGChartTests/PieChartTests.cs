@@ -20,40 +20,28 @@
 
 using System.Drawing;
 using NGChart;
+using NUnit.Framework;
 
-namespace Charts
+namespace NGChartTests
 {
-
-    public class ChartGenerator
+    [TestFixture]
+    public class PieChartTests
     {
-
-        public static string Get()
+        [Test]
+        public void Pie2DTest()
         {
             Chart chart = new Chart(ChartType.PieChart3D,
                          new ChartSize(300, 200),
                          new ChartData(new int[] { 25, 28, 53 }),
                          new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon });
 
-           //Chart chart = new Chart(ChartType.PieChart3D, 
-           //                         new ChartSize(200, 125), 
-           //                         new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
-           //                         Color.DodgerBlue);
+            string chartString = chart.ToString();
 
-            //Chart chart = new Chart(ChartType.Line, 
-           //                         new ChartSize(200, 125), 
-           //                         new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
-           //                         Color.DodgerBlue);
-
-            //Chart chart = new Chart(ChartType.VerticalGroupedChart,
-            //                         new ChartSize(200, 125),
-            //                         new ChartData(new int[][]
-            //                                           {
-            //                                               new int[] { 0, 1, 25, 26, 51 }, 
-            //                                               new int[] { 7, 12, 60, 57, 4 }
-            //                                        }),
-            //                         new Color[] { Color.DodgerBlue, Color.YellowGreen });
-
-           return chart.ToString();
+            Assert.IsTrue(chartString.Contains("cht=p"));
+            Assert.IsTrue(chartString.Contains("chs=300x200"));
+            Assert.IsTrue(chartString.Contains("s:Zc1"));
+            Assert.IsTrue(chartString.Contains("chco=1E90FFFF,DA70D6FF,E9967AFF"));
+            
         }
     }
 }
