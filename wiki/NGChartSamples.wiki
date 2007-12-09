@@ -1,0 +1,27 @@
+#summary One-sentence summary of this page.
+#labels Featured,Samples
+
+= NG Chart usage samples =
+
+== Pie charts ==
+=== 3D pie chart ===
+
+[http://chart.apis.google.com/chart?chl=DodgerBlue|Orchid|DarkSalmon&cht=p3&chs=400x150&chd=s:Zc1&chco=1E90FFFF,DA70D6FF,E9967AFF View 3D Pie chart example]
+
+{{{
+PieChart chart = new PieChart(PieChartType.Pie3D,
+             new ChartSize(400, 150),
+             new ChartData(new int[] { 25, 28, 53 })
+             );
+
+// set colors
+Color[] colors = new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon };
+chart.Colors = new ChartColors(colors);
+
+// generate labels from color names
+string[] colorNames = Array.ConvertAll<Color, string>(colors,
+                            delegate(Color color)
+                            {
+                                return color.ToKnownColor().ToString();
+                            });
+}}}
