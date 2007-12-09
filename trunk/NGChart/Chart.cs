@@ -77,6 +77,16 @@ namespace NGChart
         }
         private ChartColors _colors;
 
+        /// <summary>
+        /// Chart title
+        /// </summary>
+        public ChartTitle Title
+        {
+            get { return _title; }
+            set { _title = value; }
+        }
+        private ChartTitle _title;
+
         #endregion
 
         #region Constructor

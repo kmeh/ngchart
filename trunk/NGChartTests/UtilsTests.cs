@@ -18,50 +18,41 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System;
-using System.Drawing;
+using System.Text;
 using NGChart;
 using NUnit.Framework;
 
 namespace NGChartTests
 {
     [TestFixture]
-    public class PieChartTests
+    public class UtilsTests
     {
         [Test]
-        public void Pie3DTest()
+        public void TestTitleEncoding()
         {
-            PieChart chart = new PieChart(PieChartType.Pie3D, 
-                         new ChartSize(300, 200),
-                         new ChartData(new int[] { 25, 28, 53 })
-                         );
+            StringBuilder builder = new StringBuilder(256);
 
-            Color[] colors = new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon };
-            chart.Colors = new ChartColors(colors);
+            builder.Append("foo");
+            Utils.EncodeTitle(builder);
+            Assert.AreEqual(builder.ToString(), "foo");
 
-            string[] colorNames = Array.ConvertAll<Color, string>(colors, 
-                                        delegate(Color color)
-                                            {
-                                                return color.ToKnownColor().ToString();
-                                            });
+            builder.Length = 0;
 
-            chart.Labels = new PieChartLabels(colorNames);
+            builder.Append("foo bar");
+            Utils.EncodeTitle(builder);
+            Assert.AreEqual(builder.ToString(), "foo+bar");
 
-            string chartString = chart.ToString();
+            builder.Length = 0;
 
-            Assert.IsTrue(chartString.Contains("cht=p3"));
-            Assert.IsTrue(chartString.Contains("chs=300x200"));
-            Assert.IsTrue(chartString.Contains("s:Zc1"));
-            Assert.IsTrue(chartString.Contains("chco=1E90FF,DA70D6,E9967A"));
-            Assert.IsTrue(chartString.Contains("chl=DodgerBlue|Orchid|DarkSalmon"));
-            
-        }
+            builder.Append("foo bar baz");
+            Utils.EncodeTitle(builder);
+            Assert.AreEqual(builder.ToString(), "foo+bar+baz");
 
-        public void TestChartLabels()
-        {
-            PieChartLabels labels = new PieChartLabels(new string[] {"foo", null, "bar"});
-            Assert.AreEqual(labels.Name, "chl");
-            Assert.AreEqual(labels.Data, "foo||bar");
+            builder.Length = 0;
+
+            builder.Append("foo\nbar\r\nbaz");
+            Utils.EncodeTitle(builder);
+            Assert.AreEqual(builder.ToString(), "foo|bar|baz");
         }
     }
 }

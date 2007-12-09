@@ -31,10 +31,10 @@ namespace NGChartTests
         public void RGBTest()
         {
             ChartColors singleColor = new ChartColors(Color.Red);
-            Assert.AreEqual(singleColor.ToString(), "chco=FF0000FF");
+            Assert.AreEqual(singleColor.ToString(), "chco=FF0000");
 
             ChartColors multipleColors = new ChartColors(new Color[] { Color.Lime, Color.FromArgb(0x54, Color.Blue)});
-            Assert.AreEqual(multipleColors.Data, "00FF00FF,0000FF54");
+            Assert.AreEqual(multipleColors.Data, "00FF00,0000FF54");
         }
     }
 }
