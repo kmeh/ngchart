@@ -18,7 +18,6 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System;
 using NGChart;
 using NUnit.Framework;
 
@@ -30,10 +29,18 @@ namespace NGChartTests
         [Test]
         public void LineChart()
         {
-            Chart chart = new Chart(ChartType.Line, new ChartSize(200, 125), new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
+            Chart chart = new Chart(
+                                ChartType.Line, 
+                                new ChartSize(200, 125), 
+                                new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
 
-            Assert.AreEqual("http://chart.apis.google.com/chart?cht=lc&chs=200x125&chd=s:ABZaz09B", chart.ToString());
+            string chartUrl = chart.ToString();
+            Assert.IsTrue(chartUrl.Contains("http://chart.apis.google.com/chart?"));
+            Assert.IsTrue(chartUrl.Contains("cht=lc"));
+            Assert.IsTrue(chartUrl.Contains("chs=200x125"));
+            Assert.IsTrue(chartUrl.Contains("chd=s:ABZaz09B"));
         }
 
+        
     }
 }
