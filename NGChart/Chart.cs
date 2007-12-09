@@ -18,8 +18,10 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
-using System.Drawing;
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text;
 
 namespace NGChart
 {
@@ -37,13 +39,43 @@ namespace NGChart
         #region Properties
 
         /// <summary>
-        /// Chart parameters
+        /// Type of the chart
         /// </summary>
-        public ChartParams Params
+        public ChartType Type
         {
-            get { return _params; }
+            get { return _type; }
         }
-        private readonly ChartParams _params = new ChartParams();
+        private readonly ChartType _type;
+
+        /// <summary>
+        /// Chart size
+        /// </summary>
+        public ChartSize Size
+        {
+            get { return _size; }
+            set { _size = value; }
+        }
+        private ChartSize _size;
+
+        /// <summary>
+        /// Chart data
+        /// </summary>
+        public ChartData Data
+        {
+            get { return _data; }
+            set { _data = value; }
+        }
+        private ChartData _data;
+
+        /// <summary>
+        /// Chart colors
+        /// </summary>
+        public ChartColors Colors
+        {
+            get { return _colors; }
+            set { _colors = value; }
+        }
+        private ChartColors _colors;
 
         #endregion
 
@@ -57,37 +89,9 @@ namespace NGChart
         /// <param name="data">Chart data</param>
         public Chart(ChartType type, ChartSize size, ChartData data)
         {
-            _params.Add(type);
-            _params.Add(size);
-            _params.Add(data);
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data, Color color)
-        {
-            _params.Add(type);
-            _params.Add(size);
-            _params.Add(data);
-            _params.Add(new ChartColors(color));
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data, IEnumerable<Color> colors)
-        {
-            _params.Add(type);
-            _params.Add(size);
-            _params.Add(data);
-            _params.Add(new ChartColors(colors));
+            _type = type;
+            _size = size;
+            _data = data;
         }
 
         #endregion
@@ -97,7 +101,34 @@ namespace NGChart
 
         public override string ToString()
         {
-            return c_urlService + Params.ToString();
+            // ER: think on caching it
+            PropertyInfo[] properties = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
+            Debug.Assert(null != properties);
+
+            StringBuilder builder = new StringBuilder(c_urlService, properties.Length * 128);
+
+            // run though all fields with ChartParam type
+            Array.ForEach(properties, 
+                delegate (PropertyInfo property)
+                    {
+                        if (property.CanRead)
+                        {
+                            // skip properties with null values
+                            ChartParam param = property.GetValue(this, null) as ChartParam;
+                            if (null != param)
+                            {
+                                param.Render(builder);
+                                builder.Append('&');
+                            }
+                        }
+
+                    });
+
+            // remove the last amp
+            if (builder.Length > 0)
+                builder.Length--;
+
+            return builder.ToString();
         }
 
         #endregion
