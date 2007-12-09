@@ -60,28 +60,4 @@ namespace NGChart
             return builder.ToString();
         }
     }
-
-    /// <summary>
-    /// Helper parameters collection class (ER: TODO: get rid of it)
-    /// </summary>
-    public class ChartParams : List<ChartParam>
-    {
-        public override string ToString()
-        {
-            StringBuilder builder = new StringBuilder(Count * 128);
-
-            foreach (ChartParam param in this)
-            {
-                param.Render(builder);
-                builder.Append('&');
-            }
-
-            // remove the last amp
-            if (builder.Length > 0)
-                builder.Length--;
-
-            return builder.ToString();
-        }
-    }
-
 }
