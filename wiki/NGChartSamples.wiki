@@ -3,6 +3,18 @@
 
 = NG Chart usage samples =
 
+== Line charts ==
+[http://chart.apis.google.com/chart?cht=lc&chs=200x125&chd=s:ABZaz09B&chco=1E90FF&chtt=Line+chart|simple+one&chts=808000,10 View example of line chart with chart title]
+
+Code to generate the chart:
+{{{
+Chart chart = new Chart(ChartType.Line,
+                        new ChartSize(200, 125),
+                        new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
+chart.Colors = new ChartColors(Color.DodgerBlue);
+chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 10);
+}}}
+
 == Pie charts ==
 === 2D pie chart ===
 [http://chart.apis.google.com/chart?cht=p&chs=300x200&chd=s:ZcM View example of 2D Pie chart]
