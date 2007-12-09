@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Samples of the library usage.
 #labels Featured,Samples
 
 = NG Chart usage samples =
