@@ -50,7 +50,7 @@ string[] colorNames = Array.ConvertAll<Color, string>(colors,
 }}}
 
 == Bar charts ==
-[http://chart.apis.google.com/chart?cht=bvg&amp;chs=300x125&amp;chd=s:UBZaz,HM85E&amp;chco=1E90FF,9ACD32 View example of bar charts]
+[http://chart.apis.google.com/chart?cht=bvg&chs=300x125&chd=s:UBZaz,HM85E&chco=1E90FF,9ACD32 View example of bar charts]
 
 Code to generate the chart:
 {{{
