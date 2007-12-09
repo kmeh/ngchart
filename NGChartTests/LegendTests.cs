@@ -18,48 +18,19 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Text;
 using NGChart;
 using NUnit.Framework;
 
 namespace NGChartTests
 {
     [TestFixture]
-    public class UtilsTests
+    public class LegendTests
     {
         [Test]
-        public void TestTitleEncoding()
+        public void TestLegend()
         {
-            StringBuilder builder = new StringBuilder(256);
-
-            builder.Append("foo");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo");
-
-            builder.Length = 0;
-
-            builder.Append("foo bar");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo+bar");
-
-            builder.Length = 0;
-
-            builder.Append("foo bar baz");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo+bar+baz");
-
-            builder.Length = 0;
-
-            builder.Append("foo\nbar\r\nbaz");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo|bar|baz");
-        }
-
-        [Test]
-        public void TestGenerateString()
-        {
-            string result = Utils.GenerateString(new int[] {1, 2, 3}, "foo");
-            Assert.AreEqual(result, "1foo2foo3");
+            ChartLegend legend = new ChartLegend(new string[] {"Jan", "Feb", "Mar"});
+            Assert.AreEqual(legend.ToString(), "chdl=Jan|Feb|Mar");
         }
     }
 }

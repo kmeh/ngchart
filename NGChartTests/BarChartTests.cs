@@ -18,48 +18,36 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Text;
+using System.Drawing;
 using NGChart;
 using NUnit.Framework;
 
 namespace NGChartTests
 {
     [TestFixture]
-    public class UtilsTests
+    public class BarChartTests
     {
         [Test]
-        public void TestTitleEncoding()
+        public void TestVerticalGroupedBar()
         {
-            StringBuilder builder = new StringBuilder(256);
+            Chart chart = new Chart(ChartType.VerticalGroupedChart,
+                                     new ChartSize(420, 125),
+                                     new ChartData(new int[][]
+                                                       {
+                                                           new int[] { 20, 1, 25, 26, 51 }, 
+                                                           new int[] { 7, 12, 60, 57, 4 }
+                                                    })
+                                     );
+            chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
+            chart.Legend = new ChartLegend(new string[] { "Winter", "Summer" });
 
-            builder.Append("foo");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo");
+            string result = chart.ToString();
 
-            builder.Length = 0;
+            Assert.IsTrue(result.Contains("cht=bvg"));
+            Assert.IsTrue(result.Contains("chs=420x125"));
+            Assert.IsTrue(result.Contains("chdl=Winter|Summer"));
 
-            builder.Append("foo bar");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo+bar");
-
-            builder.Length = 0;
-
-            builder.Append("foo bar baz");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo+bar+baz");
-
-            builder.Length = 0;
-
-            builder.Append("foo\nbar\r\nbaz");
-            Utils.EncodeTitle(builder);
-            Assert.AreEqual(builder.ToString(), "foo|bar|baz");
-        }
-
-        [Test]
-        public void TestGenerateString()
-        {
-            string result = Utils.GenerateString(new int[] {1, 2, 3}, "foo");
-            Assert.AreEqual(result, "1foo2foo3");
+            // ER: TODO: test data and color
         }
     }
 }
