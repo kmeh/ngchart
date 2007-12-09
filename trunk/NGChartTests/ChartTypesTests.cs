@@ -26,14 +26,10 @@ namespace NGChartTests
     [TestFixture]
     public class ChartTypesTests
     {
-        private readonly ChartSize c_defaultSize = new ChartSize(200, 125);
-        private readonly ChartData c_defaultData = new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 });
-
         [Test]
         public void TestLine()
         {
-            Chart chart = new Chart(ChartType.Line, c_defaultSize, c_defaultData);
-            Assert.IsTrue(chart.ToString().Contains("cht=lc"));
+            Assert.AreEqual(ChartType.Line.ToString(), "cht=lc");
         }
 
         [Test]
@@ -43,6 +39,13 @@ namespace NGChartTests
             Assert.AreEqual(ChartType.HorizontalStackedChart.ToString(), "cht=bhs");
             Assert.AreEqual(ChartType.VerticalGroupedChart.ToString(), "cht=bvg");
             Assert.AreEqual(ChartType.VerticalStackedChart.ToString(), "cht=bvs");
+        }
+
+        [Test]
+        public void TestPies()
+        {
+            Assert.AreEqual(ChartType.PieChart2D.ToString(), "cht=p");
+            Assert.AreEqual(ChartType.PieChart3D.ToString(), "cht=p3");
         }
     }
 }
