@@ -92,5 +92,25 @@ namespace NGChart
         }
 
         #endregion
+
+        #region Pie charts
+
+        /// <summary>
+        /// Two dimensional pie chart.
+        /// </summary>
+        public static ChartType PieChart2D
+        {
+            get { return new ChartType("p");}
+        }
+
+        /// <summary>
+        /// Three dimensional pie chart.
+        /// </summary>
+        public static ChartType PieChart3D
+        {
+            get { return new ChartType("p3"); }
+        }
+
+        #endregion
     }
 }
