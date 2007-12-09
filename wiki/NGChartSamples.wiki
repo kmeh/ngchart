@@ -5,8 +5,7 @@
 
 == Pie charts ==
 === 2D pie chart ===
-[http://chart.apis.google.com/chart?cht=p&chs=300x200&chd=s:ZcM 
-View example of 2D Pie chart ]
+[http://chart.apis.google.com/chart?cht=p&chs=300x200&chd=s:ZcM View example of 2D Pie chart]
 
 Code to generate the chart:
 {{{
