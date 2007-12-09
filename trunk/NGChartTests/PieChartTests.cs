@@ -18,6 +18,7 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System;
 using System.Drawing;
 using NGChart;
 using NUnit.Framework;
@@ -28,20 +29,39 @@ namespace NGChartTests
     public class PieChartTests
     {
         [Test]
-        public void Pie2DTest()
+        public void Pie3DTest()
         {
-            Chart chart = new Chart(ChartType.PieChart3D,
+            PieChart chart = new PieChart(PieChartType.Pie3D, 
                          new ChartSize(300, 200),
-                         new ChartData(new int[] { 25, 28, 53 }),
-                         new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon });
+                         new ChartData(new int[] { 25, 28, 53 })
+                         );
+
+            Color[] colors = new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon };
+            chart.Colors = new ChartColors(colors);
+
+            string[] colorNames = Array.ConvertAll<Color, string>(colors, 
+                                        delegate(Color color)
+                                            {
+                                                return color.ToKnownColor().ToString();
+                                            });
+
+            chart.Labels = new PieChartLabels(colorNames);
 
             string chartString = chart.ToString();
 
-            Assert.IsTrue(chartString.Contains("cht=p"));
+            Assert.IsTrue(chartString.Contains("cht=p3"));
             Assert.IsTrue(chartString.Contains("chs=300x200"));
             Assert.IsTrue(chartString.Contains("s:Zc1"));
             Assert.IsTrue(chartString.Contains("chco=1E90FFFF,DA70D6FF,E9967AFF"));
+            Assert.IsTrue(chartString.Contains("chl=DodgerBlue|Orchid|DarkSalmon"));
             
+        }
+
+        public void TestChartLabels()
+        {
+            PieChartLabels labels = new PieChartLabels(new string[] {"foo", null, "bar"});
+            Assert.AreEqual(labels.Name, "chl");
+            Assert.AreEqual(labels.Data, "foo||bar");
         }
     }
 }

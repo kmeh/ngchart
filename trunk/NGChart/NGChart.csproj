@@ -44,6 +44,8 @@
     <Compile Include="ChartSize.cs" />
     <Compile Include="ChartType.cs" />
     <Compile Include="ChartTypeDefinitions.cs" />
+    <Compile Include="PieChart.cs" />
+    <Compile Include="PieChartLabels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
