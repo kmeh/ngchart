@@ -18,6 +18,7 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System;
 using System.Drawing;
 using NGChart;
 
@@ -29,10 +30,30 @@ namespace Charts
 
         public static string Get()
         {
-            Chart chart = new Chart(ChartType.PieChart3D,
+            //PieChart chart = new PieChart(PieChartType.Pie3D,
+            //             new ChartSize(400, 150),
+            //             new ChartData(new int[] { 25, 28, 53 })
+            //             );
+
+            //// set colors
+            //Color[] colors = new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon };
+            //chart.Colors = new ChartColors(colors);
+
+            //// generate labels from color names
+            //string[] colorNames = Array.ConvertAll<Color, string>(colors,
+            //                            delegate(Color color)
+            //                            {
+            //                                return color.ToKnownColor().ToString();
+            //                            });
+
+            //chart.Labels = new PieChartLabels(colorNames);
+
+            PieChart chart = new PieChart(PieChartType.Pie2D, 
                          new ChartSize(300, 200),
-                         new ChartData(new int[] { 25, 28, 53 }),
-                         new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon });
+                         new ChartData(new int[] { 25, 28, 12 })
+                         );
+
+            //chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.Orchid, Color.DarkSalmon });
 
            //Chart chart = new Chart(ChartType.PieChart3D, 
            //                         new ChartSize(200, 125), 

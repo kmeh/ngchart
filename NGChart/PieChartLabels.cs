@@ -18,51 +18,77 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System.Collections.Generic;
+using System.Text;
+
 namespace NGChart
 {
     /// <summary>
-    /// Type of the chart
+    /// Labels for pie chart
     /// </summary>
-    public partial class ChartType : ChartParam
+    /// <remarks>
+    /// http://code.google.com/apis/chart/#pie_labels
+    /// </remarks>
+    public class PieChartLabels : ChartParam
     {
-        #region Private stuff
+        #region Labels
 
-        private readonly string _type;
-
-        #endregion
-
-        #region Properties
+        #region Overrides
 
         /// <summary>
         /// Name of the parameter
         /// </summary>
-        /// <value></value>
         public override string Name
         {
-            get { return "cht"; }
+            get { return "chl"; }
         }
 
         /// <summary>
         /// Parameter data
         /// </summary>
-        /// <value></value>
         public override string Data
         {
-            get { return _type; }
+            get
+            {
+                StringBuilder builder = new StringBuilder(256);
+                if (null != Labels)
+                {
+                    foreach (string label in Labels)
+                    {
+                        builder.Append(label);
+                        builder.Append('|');
+                    }
+
+                    if (builder.Length > 0)
+                        builder.Length--;
+                }
+
+                return builder.ToString();
+            }
         }
 
         #endregion
 
         /// <summary>
-        /// Protected constructor
+        /// Pie chart labels
         /// </summary>
-        /// <param name="type">Chart type</param>
-        /// <remarks>
-        /// Should not be accessible from the outside.
-        /// </remarks>
-        public ChartType(string type)
+        public IEnumerable<string> Labels
         {
-            _type = type;
+            get { return _labels; }
+            set { _labels = value; }
         }
+        private IEnumerable<string> _labels;
+
+        #endregion
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="labels">Collection with labels</param>
+        public PieChartLabels(IEnumerable<string> labels)
+        {
+            _labels = labels;
+        }
+
     }
 }
