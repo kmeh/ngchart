@@ -48,3 +48,19 @@ string[] colorNames = Array.ConvertAll<Color, string>(colors,
                                 return color.ToKnownColor().ToString();
                             });
 }}}
+
+== Bar charts ==
+[http://chart.apis.google.com/chart?cht=bvg&amp;chs=300x125&amp;chd=s:UBZaz,HM85E&amp;chco=1E90FF,9ACD32 View example of bar charts]
+
+Code to generate the chart:
+{{{
+Chart chart = new Chart(ChartType.VerticalGroupedChart,
+                         new ChartSize(300, 125),
+                         new ChartData(new int[][]
+                                           {
+                                               new int[] { 20, 1, 25, 26, 51 }, 
+                                               new int[] { 7, 12, 60, 57, 4 }
+                                        })
+                         );
+chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
+}}}
