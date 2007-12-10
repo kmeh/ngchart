@@ -37,6 +37,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BarChart.cs" />
+    <Compile Include="BarChartSize.cs" />
     <Compile Include="Chart.cs" />
     <Compile Include="ChartColors.cs" />
     <Compile Include="ChartData.cs" />

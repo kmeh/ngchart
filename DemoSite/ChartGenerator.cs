@@ -73,8 +73,20 @@ namespace Charts
             //chart.Colors = new ChartColors(Color.DodgerBlue);
             //chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 10);
 
-            Chart chart = new Chart(ChartType.VerticalGroupedChart,
-                                     new ChartSize(420, 125),
+            //BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Vertical,
+            //                         new ChartSize(420, 125),
+            //                         new ChartData(new int[][]
+            //                                           {
+            //                                               new int[] { 20, 1, 25, 26, 51 }, 
+            //                                               new int[] { 7, 12, 60, 57, 4 }
+            //                                        })
+            //                         );
+            //chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
+            //chart.Legend = new ChartLegend(new string[] {"Winter", "Summer"});
+            //chart.BarChartSize = new BarChartSize(18, 1);
+
+            BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Horizontal,
+                                     new ChartSize(400, 240),
                                      new ChartData(new int[][]
                                                        {
                                                            new int[] { 20, 1, 25, 26, 51 }, 
@@ -82,7 +94,8 @@ namespace Charts
                                                     })
                                      );
             chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
-            chart.Legend = new ChartLegend(new string[] {"Winter", "Summer"});
+            chart.Legend = new ChartLegend(new string[] { "Winter", "Summer" });
+            chart.BarChartSize = new BarChartSize(18, 1);
 
            return chart.ToString();
         }

@@ -41,58 +41,6 @@ namespace NGChart
 
         #endregion
 
-        #region Bar charts
-
-        // ER: TODO: change it to enums
-
-        // http://code.google.com/apis/chart/#bar_charts
-
-        /// <summary>
-        /// Horizontal bar chart. Multiple data sets are grouped.
-        /// </summary>
-        public static ChartType HorizontalGroupedChart
-        {
-            get
-            {
-                return new ChartType("bhg");
-            }
-        }
-
-        /// <summary>
-        /// Horizontal bar chart. Multiple data sets are stacked.
-        /// </summary>
-        public static ChartType HorizontalStackedChart
-        {
-            get
-            {
-                return new ChartType("bhs");
-            }
-        }
-
-        /// <summary>
-        /// Vertical bar chart. Multiple data sets are grouped.
-        /// </summary>
-        public static ChartType VerticalGroupedChart
-        {
-            get
-            {
-                return new ChartType("bvg");
-            }
-        }
-
-        /// <summary>
-        /// Vertical bar chart. Multiple data sets are stacked.
-        /// </summary>
-        public static ChartType VerticalStackedChart
-        {
-            get
-            {
-                return new ChartType("bvs");
-            }
-        }
-
-        #endregion
-
         #region Pie charts
 
         /// <summary>
