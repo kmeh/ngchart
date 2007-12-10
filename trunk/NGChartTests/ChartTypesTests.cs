@@ -33,15 +33,6 @@ namespace NGChartTests
         }
 
         [Test]
-        public void TestCharts()
-        {
-            Assert.AreEqual(ChartType.HorizontalGroupedChart.ToString(), "cht=bhg");
-            Assert.AreEqual(ChartType.HorizontalStackedChart.ToString(), "cht=bhs");
-            Assert.AreEqual(ChartType.VerticalGroupedChart.ToString(), "cht=bvg");
-            Assert.AreEqual(ChartType.VerticalStackedChart.ToString(), "cht=bvs");
-        }
-
-        [Test]
         public void TestPies()
         {
             Assert.AreEqual(ChartType.PieChart2D.ToString(), "cht=p");

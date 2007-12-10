@@ -30,7 +30,7 @@ namespace NGChartTests
         [Test]
         public void TestVerticalGroupedBar()
         {
-            Chart chart = new Chart(ChartType.VerticalGroupedChart,
+            Chart chart = new BarChart(BarsType.Grouped, BarsDirection.Vertical,
                                      new ChartSize(420, 125),
                                      new ChartData(new int[][]
                                                        {
@@ -48,6 +48,72 @@ namespace NGChartTests
             Assert.IsTrue(result.Contains("chdl=Winter|Summer"));
 
             // ER: TODO: test data and color
+        }
+
+        [Test]
+        public void TestHorizontalGroupedBar()
+        {
+            Chart chart = new BarChart(BarsType.Grouped, BarsDirection.Horizontal,
+                                     new ChartSize(320, 134),
+                                     new ChartData(new int[][]
+                                                       {
+                                                           new int[] { 20, 1, 25, 26, 51 }, 
+                                                           new int[] { 7, 12, 60, 57, 4 }
+                                                    })
+                                     );
+
+            string result = chart.ToString();
+
+            Assert.IsTrue(result.Contains("cht=bhg"));
+            Assert.IsTrue(result.Contains("chs=320x134"));
+
+            // ER: TODO: test data 
+        }
+
+        [Test]
+        public void TestHorizontalStackedBar()
+        {
+            BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Horizontal,
+                                     new ChartSize(400, 240),
+                                     new ChartData(new int[][]
+                                                       {
+                                                           new int[] { 20, 1, 25, 26, 51 }, 
+                                                           new int[] { 7, 12, 60, 57, 4 }
+                                                    })
+                                     );
+            chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
+            chart.Legend = new ChartLegend(new string[] { "Winter", "Summer" });
+            chart.BarChartSize = new BarChartSize(18, 1);
+
+            string result = chart.ToString();
+
+            Assert.IsTrue(result.Contains("cht=bhs"));
+            Assert.IsTrue(result.Contains("chs=400x240"));
+            Assert.IsTrue(result.Contains("chdl=Winter|Summer"));
+            Assert.IsTrue(result.Contains("chbh=18,1"));
+        }
+
+        [Test]
+        public void TestVerticalStackedBar()
+        {
+            BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Vertical,
+                                     new ChartSize(300, 300),
+                                     new ChartData(new int[][]
+                                                       {
+                                                           new int[] { 20, 1, 25, 26, 51 }, 
+                                                           new int[] { 7, 12, 60, 57, 4 }
+                                                    })
+                                     );
+            chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
+            chart.Legend = new ChartLegend(new string[] { "Winter", "Summer" });
+            chart.BarChartSize = new BarChartSize(22);
+
+            string result = chart.ToString();
+
+            Assert.IsTrue(result.Contains("cht=bvs"));
+            Assert.IsTrue(result.Contains("chs=300x300"));
+            Assert.IsTrue(result.Contains("chdl=Winter|Summer"));
+            Assert.IsTrue(result.Contains("chbh=22"));
         }
     }
 }
