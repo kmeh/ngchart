@@ -3,6 +3,8 @@
 
 = NG Chart usage samples =
 
+In addition, you can use [http://ngchart.googlecode.com/svn/trunk/NGChartTests/ unit tests] as a guide.
+
 == Line charts ==
 [http://chart.apis.google.com/chart?cht=lc&chs=200x125&chd=s:ABZaz09B&chco=1E90FF&chtt=Line+chart|simple+one&chts=808000,10 View example of line chart with chart title]
 
