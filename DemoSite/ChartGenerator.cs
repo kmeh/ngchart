@@ -86,7 +86,7 @@ namespace Charts
             //chart.BarChartSize = new BarChartSize(18, 1);
 
             BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Horizontal,
-                                     new ChartSize(400, 240),
+                                     new ChartSize(400, 140),
                                      new ChartData(new int[][]
                                                        {
                                                            new int[] { 20, 1, 25, 26, 51 }, 
