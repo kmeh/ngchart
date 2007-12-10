@@ -1,0 +1,8 @@
+NGChart change log (http://code.google.com/p/ngchart/)
+
+=== Dec 09, 2007
+ * line charts
+ * bar charts
+ * pie charts with labels
+ * chart legend
+ * chart title
