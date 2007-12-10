@@ -1,0 +1,13 @@
+NGChart change log (http://code.google.com/p/ngchart/)
+
+=== Mon, Dec 10, 2007
+
+ * Bar charts are separate type now (old way of bar chart creation marked as obsolete now)
+ * Added control over bar thickness and bars spacing
+    
+=== Sun, Dec 09, 2007
+ * line charts
+ * bar charts
+ * pie charts with labels
+ * chart legend
+ * chart title
