@@ -18,6 +18,8 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System;
+
 namespace NGChart
 {
     /// <summary>
@@ -36,6 +38,60 @@ namespace NGChart
             get
             {
                 return new ChartType("lc");
+            }
+        }
+
+        #endregion
+
+        #region Bar charts
+
+        // OBSOLETE STUFF. BarChart class should be used.
+
+        /// <summary>
+        /// Horizontal bar chart. Multiple data sets are grouped.
+        /// </summary>
+        [Obsolete("Use BarChart class instead. It gives more control over bars customization.")]
+        public static ChartType HorizontalGroupedChart
+        {
+            get
+            {
+                return new ChartType("bhg");
+            }
+        }
+
+        /// <summary>
+        /// Horizontal bar chart. Multiple data sets are stacked.
+        /// </summary>
+        [Obsolete("Use BarChart class instead. It gives more control over bars customization.")]
+        public static ChartType HorizontalStackedChart
+        {
+            get
+            {
+                return new ChartType("bhs");
+            }
+        }
+
+        /// <summary>
+        /// Vertical bar chart. Multiple data sets are grouped.
+        /// </summary>
+        [Obsolete("Use BarChart class instead. It gives more control over bars customization.")]
+        public static ChartType VerticalGroupedChart
+        {
+            get
+            {
+                return new ChartType("bvg");
+            }
+        }
+
+        /// <summary>
+        /// Vertical bar chart. Multiple data sets are stacked.
+        /// </summary>
+        [Obsolete("Use BarChart class instead. It gives more control over bars customization.")]
+        public static ChartType VerticalStackedChart
+        {
+            get
+            {
+                return new ChartType("bvs");
             }
         }
 
