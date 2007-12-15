@@ -39,6 +39,7 @@
     </Compile>
     <Compile Include="BarChart.cs" />
     <Compile Include="BarChartSize.cs" />
+    <Compile Include="Encoders\BaseEncoder.cs" />
     <Compile Include="Chart.cs" />
     <Compile Include="ChartColors.cs" />
     <Compile Include="ChartData.cs" />
@@ -48,6 +49,10 @@
     <Compile Include="ChartTitle.cs" />
     <Compile Include="ChartType.cs" />
     <Compile Include="ChartTypeDefinitions.cs" />
+    <Compile Include="Encoders\EncodingProcessor.cs" />
+    <Compile Include="Encoders\SimpleEncoder.cs" />
+    <Compile Include="Encoders\TextEncoder.cs" />
+    <Compile Include="Encoders\IEncodingProcessor.cs" />
     <Compile Include="PieChart.cs" />
     <Compile Include="PieChartLabels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

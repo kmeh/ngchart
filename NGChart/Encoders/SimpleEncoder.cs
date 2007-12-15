@@ -18,97 +18,80 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
-using NGChart.Encoders;
-
-namespace NGChart
+namespace NGChart.Encoders
 {
     /// <summary>
-    /// Parameter with data series
+    /// Simple encoding has a resolution of 62 different values. 
+    /// Allowing five pixels per data point, this is sufficient for line and bar charts up to about 300 pixels. 
+    /// Simple encoding is suitable for all other types of chart regardless of size.
     /// </summary>
-    public class ChartData : ChartParam 
+    /// <remarks>http://code.google.com/apis/chart/#simple</remarks>
+    public class SimpleEncoder : BaseEncoder<int>
     {
-        #region Constructors
+        #region Constants
 
-        #region Simple encoding cases
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="sets">Set of data sets</param>
-        public ChartData(IEnumerable<IEnumerable<int>> sets)
-        {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(sets);
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="dataSet">Single data set</param>
-        public ChartData(IEnumerable<int> dataSet)
-        {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(dataSet);
-        }
+        private const string c_prefixSimpleEncoding = "s";
+        private const string c_missingValue = "_";
+        private static readonly char[] c_encodingValues = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
 
         #endregion
 
-        #region Text encoding cases
+        #region Properties
 
         /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="sets">Set of data sets</param>
-        public ChartData(IEnumerable<IEnumerable<float>> sets)
-        {
-            _processor = new EncodingProcessor<TextEncoder, float>(sets);
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="dataSet">Single data set</param>
-        public ChartData(IEnumerable<float> dataSet)
-        {
-            _processor = new EncodingProcessor<TextEncoder, float>(dataSet);
-        }
-
-        #endregion
-
-        #endregion
-
-        /// <summary>
-        /// Encoding processor
-        /// </summary>
-        public IEncodingProcessor Processor
-        {
-            get { return _processor; }
-        }
-        private readonly IEncodingProcessor _processor;
-
-        #region Overrides
-
-        /// <summary>
-        /// Name of the parameter
+        /// Prefix for data set
         /// </summary>
         /// <value></value>
-        public override string Name
+        protected internal override string Prefix
         {
-            get { return "chd"; }
+            get { return c_prefixSimpleEncoding; }
         }
 
         /// <summary>
-        /// Parameter data
+        /// String to put instead of missing value
         /// </summary>
-        /// <value></value>
-        public override string Data
+        protected override string MissingValue
         {
-            get
-            {
-                return Processor.Generate();
-            }
+            get { return c_missingValue; }
+        }
+
+        /// <summary>
+        /// Minimum valid value
+        /// </summary>
+        protected override int MinValidValue
+        {
+            get { return 0; }
+        }
+
+        /// <summary>
+        /// Maximum valid value
+        /// </summary>
+        protected override int MaxValidValue
+        {
+            get { return 61; }
+        }
+
+        /// <summary>
+        /// Separator to insert between data sets
+        /// </summary>
+        protected internal override string DataSetsSeparator
+        {
+            get { return ","; }
+        }
+
+        /// <summary>
+        /// Separator to insert between encoded numbers
+        /// </summary>
+        protected internal override string NumbersSeparator
+        {
+            get { return string.Empty; }
         }
 
         #endregion
 
+        protected override string EncodeNumber(int number)
+        {
+            return c_encodingValues[number].ToString();
+        }
     }
 }

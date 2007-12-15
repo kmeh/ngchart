@@ -85,17 +85,30 @@ namespace Charts
             //chart.Legend = new ChartLegend(new string[] {"Winter", "Summer"});
             //chart.BarChartSize = new BarChartSize(18, 1);
 
-            BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Horizontal,
-                                     new ChartSize(400, 140),
-                                     new ChartData(new int[][]
-                                                       {
-                                                           new int[] { 20, 1, 25, 26, 51 }, 
-                                                           new int[] { 7, 12, 60, 57, 4 }
-                                                    })
-                                     );
-            chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
-            chart.Legend = new ChartLegend(new string[] { "Winter", "Summer" });
-            chart.BarChartSize = new BarChartSize(18, 1);
+            //BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Horizontal,
+            //                         new ChartSize(400, 140),
+            //                         new ChartData(new int[][]
+            //                                           {
+            //                                               new int[] { 20, 1, 25, 26, 51 }, 
+            //                                               new int[] { 7, 12, 60, 57, 4 }
+            //                                        })
+            //                         );
+            //chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
+            //chart.Legend = new ChartLegend(new string[] { "Winter", "Summer" });
+            //chart.BarChartSize = new BarChartSize(18, 1);
+
+
+            ChartData chartData = new ChartData(
+                    new float[][] {
+                        new float[] { 33f, 99.9f, 55.1f },
+                        new float[] { 0f, 40.4f, 100f },
+                        new float[] { 26f, 0.1f, 64.2f }
+                    }
+                );
+
+
+            Chart chart = new Chart(ChartType.Line, new ChartSize(420, 125), chartData);
+            chart.Colors = new ChartColors(new Color[] {Color.MediumVioletRed, Color.Bisque, Color.Tomato});
 
            return chart.ToString();
         }

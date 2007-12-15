@@ -1,3 +1,4 @@
+using System;
 // Copyright (c) 2007, Eugene Rymski
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without modification, are permitted 
@@ -18,97 +19,69 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
-using NGChart.Encoders;
-
-namespace NGChart
+namespace NGChart.Encoders
 {
     /// <summary>
-    /// Parameter with data series
+    /// Text encoder
     /// </summary>
-    public class ChartData : ChartParam 
+    public class TextEncoder : BaseEncoder<float>
     {
-        #region Constructors
-
-        #region Simple encoding cases
-
         /// <summary>
-        /// Constructor
+        /// Prefix for data set
         /// </summary>
-        /// <param name="sets">Set of data sets</param>
-        public ChartData(IEnumerable<IEnumerable<int>> sets)
+        protected internal override string Prefix
         {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(sets);
+            get { return "t"; }
         }
 
         /// <summary>
-        /// Constructor
+        /// String to put instead of missing value
         /// </summary>
-        /// <param name="dataSet">Single data set</param>
-        public ChartData(IEnumerable<int> dataSet)
+        protected override string MissingValue
         {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(dataSet);
-        }
-
-        #endregion
-
-        #region Text encoding cases
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="sets">Set of data sets</param>
-        public ChartData(IEnumerable<IEnumerable<float>> sets)
-        {
-            _processor = new EncodingProcessor<TextEncoder, float>(sets);
+            get { return "-1"; }
         }
 
         /// <summary>
-        /// Constructor
+        /// Minimum valid value
         /// </summary>
-        /// <param name="dataSet">Single data set</param>
-        public ChartData(IEnumerable<float> dataSet)
+        protected override float MinValidValue
         {
-            _processor = new EncodingProcessor<TextEncoder, float>(dataSet);
-        }
-
-        #endregion
-
-        #endregion
-
-        /// <summary>
-        /// Encoding processor
-        /// </summary>
-        public IEncodingProcessor Processor
-        {
-            get { return _processor; }
-        }
-        private readonly IEncodingProcessor _processor;
-
-        #region Overrides
-
-        /// <summary>
-        /// Name of the parameter
-        /// </summary>
-        /// <value></value>
-        public override string Name
-        {
-            get { return "chd"; }
+            get { return 0f; }
         }
 
         /// <summary>
-        /// Parameter data
+        /// Maximum valid value
         /// </summary>
-        /// <value></value>
-        public override string Data
+        protected override float MaxValidValue
         {
-            get
-            {
-                return Processor.Generate();
-            }
+            get { return 100f; }
         }
 
-        #endregion
+        /// <summary>
+        /// Separator to insert between data sets
+        /// </summary>
+        protected internal override string DataSetsSeparator
+        {
+            get { return "|"; }
+        }
 
+        /// <summary>
+        /// Separator to insert between encoded numbers
+        /// </summary>
+        protected internal override string NumbersSeparator
+        {
+            get { return ","; }
+        }
+
+        /// <summary>
+        /// Method to encode number
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns>Encoded number</returns>
+        protected override string EncodeNumber(float number)
+        {
+            return number.ToString("0.0");
+        }
     }
 }

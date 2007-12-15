@@ -20,6 +20,7 @@
 
 using System;
 using NGChart;
+using NGChart.Encoders;
 using NUnit.Framework;
 
 namespace NGChartTests
@@ -30,48 +31,51 @@ namespace NGChartTests
         [Test]
         public void TestSimpleEncoding()
         {
-            Assert.AreEqual(SimpleEncoder.Convert(0), 'A');
-            Assert.AreEqual(SimpleEncoder.Convert(25), 'Z');
-            
-            Assert.AreEqual(SimpleEncoder.Convert(26), 'a');
-            Assert.AreEqual(SimpleEncoder.Convert(51), 'z');
-            
-            Assert.AreEqual(SimpleEncoder.Convert(52), '0');
-            Assert.AreEqual(SimpleEncoder.Convert(61), '9');
+            SimpleEncoder encoder = new SimpleEncoder();
+            Assert.AreEqual(encoder.Convert(0), "A");
+            Assert.AreEqual(encoder.Convert(25), "Z");
+
+            Assert.AreEqual(encoder.Convert(26), "a");
+            Assert.AreEqual(encoder.Convert(51), "z");
+
+            Assert.AreEqual(encoder.Convert(52), "0");
+            Assert.AreEqual(encoder.Convert(61), "9");
         }
 
         [Test]
         public void TestSimpleEncodingSet()
         {
-            Assert.AreEqual(ChartData.Encode(new int[] {0, 19, 27, 53, 61}), "s:ATb19");
+            ChartData chartData = new ChartData(new int[] {0, 19, 27, 53, 61});
+            Assert.AreEqual(chartData.Data, "s:ATb19");
         }
 
         [Test]
         public void TestSimpleEncodingSets()
         {
-            Assert.AreEqual("s:A,B,CC,91",
-                ChartData.Encode(new int[][]
+            ChartData chartData = new ChartData(new int[][]
                                         {
                                             new int[] { 0 },
                                             new int[] { 1 },
                                             new int[] { 2, 2 },
                                             new int[] { 61, 53 }
-                                        }
-        ));
+                                        });
+            Assert.AreEqual("s:A,B,CC,91", chartData.Data);
         }
 
         [Test]
         [ExpectedException(ExceptionType = typeof(ArgumentOutOfRangeException))]
         public void TestSimpleEncodingInvalid1()
         {
-            Assert.AreEqual(SimpleEncoder.Convert(62), '9');
+            SimpleEncoder encoder = new SimpleEncoder();
+            Assert.AreEqual(encoder.Convert(62), "9");
         }
 
         [Test]
         [ExpectedException(ExceptionType = typeof(ArgumentOutOfRangeException))]
         public void TestSimpleEncodingInvalid2()
         {
-            Assert.AreEqual(SimpleEncoder.Convert(-1), '9');
+            SimpleEncoder encoder = new SimpleEncoder();
+            Assert.AreEqual(encoder.Convert(-1), "9");
         }
     }
 }

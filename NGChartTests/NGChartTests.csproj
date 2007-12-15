@@ -43,6 +43,7 @@
     <Compile Include="ColorsTest.cs" />
     <Compile Include="CommonTests.cs" />
     <Compile Include="EncodingTests.cs" />
+    <Compile Include="Encoding\TextEncodingTests.cs" />
     <Compile Include="LegendTests.cs" />
     <Compile Include="PieChartTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,94 +18,97 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System;
 using System.Collections.Generic;
-using NGChart.Encoders;
+using System.Text;
 
-namespace NGChart
+namespace NGChart.Encoders
 {
     /// <summary>
-    /// Parameter with data series
+    /// Wrapper for encoding process
     /// </summary>
-    public class ChartData : ChartParam 
+    /// <typeparam name="TEncoder">Encoder to use</typeparam>
+    /// <typeparam name="TNumber">Type of data</typeparam>
+    public class EncodingProcessor<TEncoder, TNumber> : IEncodingProcessor
+        where TNumber : struct, IComparable<TNumber>
+        where TEncoder : BaseEncoder<TNumber>, new()
     {
+        #region Properties
+
+        /// <summary>
+        /// Encoder
+        /// </summary>
+        protected TEncoder Encoder
+        {
+            get { return _encoder; }
+        }
+        private readonly TEncoder _encoder = new TEncoder();
+
+        /// <summary>
+        /// Sets of data
+        /// </summary>
+        public IEnumerable<IEnumerable<TNumber>> DataSets
+        {
+            get { return _sets; }
+        }
+        private readonly IEnumerable<IEnumerable<TNumber>> _sets;
+
+        #endregion
+
         #region Constructors
 
-        #region Simple encoding cases
-
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="sets">Set of data sets</param>
-        public ChartData(IEnumerable<IEnumerable<int>> sets)
+        /// <param name="sets">Data sets to process</param>
+        public EncodingProcessor(IEnumerable<IEnumerable<TNumber>> sets)
         {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(sets);
+            _sets = sets;
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="dataSet">Single data set</param>
-        public ChartData(IEnumerable<int> dataSet)
+        /// <param name="dataSet">Dataset to process</param>
+        public EncodingProcessor(IEnumerable<TNumber> dataSet)
         {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(dataSet);
+            _sets = new IEnumerable<TNumber>[] { dataSet };
         }
 
         #endregion
 
-        #region Text encoding cases
+        #region Methods
 
         /// <summary>
-        /// Constructor
+        /// Generate string with encoded data
         /// </summary>
-        /// <param name="sets">Set of data sets</param>
-        public ChartData(IEnumerable<IEnumerable<float>> sets)
+        /// <returns>String with the encoded data</returns>
+        public string Generate()
         {
-            _processor = new EncodingProcessor<TextEncoder, float>(sets);
-        }
+            StringBuilder builder = new StringBuilder(50);
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="dataSet">Single data set</param>
-        public ChartData(IEnumerable<float> dataSet)
-        {
-            _processor = new EncodingProcessor<TextEncoder, float>(dataSet);
-        }
+            builder.Append(Encoder.Prefix);
+            builder.Append(':');
 
-        #endregion
-
-        #endregion
-
-        /// <summary>
-        /// Encoding processor
-        /// </summary>
-        public IEncodingProcessor Processor
-        {
-            get { return _processor; }
-        }
-        private readonly IEncodingProcessor _processor;
-
-        #region Overrides
-
-        /// <summary>
-        /// Name of the parameter
-        /// </summary>
-        /// <value></value>
-        public override string Name
-        {
-            get { return "chd"; }
-        }
-
-        /// <summary>
-        /// Parameter data
-        /// </summary>
-        /// <value></value>
-        public override string Data
-        {
-            get
+            foreach (IEnumerable<TNumber> values in _sets)
             {
-                return Processor.Generate();
+                foreach (TNumber number in values)
+                {
+                    builder.Append(Encoder.Convert(number));
+                    builder.Append(Encoder.NumbersSeparator);
+                }
+
+                // remove trailing separator
+                if (builder.Length > Encoder.NumbersSeparator.Length) builder.Length -= Encoder.NumbersSeparator.Length;
+
+                builder.Append(Encoder.DataSetsSeparator);
             }
+
+            // remove trailing separator if necessary
+            if (builder.Length > 0) builder.Length--;
+
+            return builder.ToString();
+
         }
 
         #endregion
