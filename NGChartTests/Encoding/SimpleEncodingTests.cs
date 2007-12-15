@@ -23,7 +23,7 @@ using NGChart;
 using NGChart.Encoders;
 using NUnit.Framework;
 
-namespace NGChartTests
+namespace NGChartTests.Encoding
 {
     [TestFixture]
     public class EncodingTests
@@ -53,12 +53,12 @@ namespace NGChartTests
         public void TestSimpleEncodingSets()
         {
             ChartData chartData = new ChartData(new int[][]
-                                        {
-                                            new int[] { 0 },
-                                            new int[] { 1 },
-                                            new int[] { 2, 2 },
-                                            new int[] { 61, 53 }
-                                        });
+                                                    {
+                                                        new int[] { 0 },
+                                                        new int[] { 1 },
+                                                        new int[] { 2, 2 },
+                                                        new int[] { 61, 53 }
+                                                    });
             Assert.AreEqual("s:A,B,CC,91", chartData.Data);
         }
 

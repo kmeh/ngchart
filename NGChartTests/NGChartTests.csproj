@@ -42,7 +42,7 @@
     <Compile Include="ChartTypesTests.cs" />
     <Compile Include="ColorsTest.cs" />
     <Compile Include="CommonTests.cs" />
-    <Compile Include="EncodingTests.cs" />
+    <Compile Include="Encoding\SimpleEncodingTests.cs" />
     <Compile Include="Encoding\TextEncodingTests.cs" />
     <Compile Include="LegendTests.cs" />
     <Compile Include="PieChartTests.cs" />
