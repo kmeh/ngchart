@@ -6,15 +6,15 @@
 In addition, you can use [http://ngchart.googlecode.com/svn/trunk/NGChartTests/ unit tests] as a guide.
 
 == Line charts ==
-[http://chart.apis.google.com/chart?cht=lc&chs=200x125&chd=s:ABZaz09B&chco=1E90FF&chtt=Line+chart|simple+one&chts=808000,10 View example of line chart with chart title]
+[http://chart.apis.google.com/chart?chls=3,7,1&cht=lc&chs=200x125&chd=s:ABZaz09B&chco=1E90FF&chtt=Line+chart|simple+one&chts=808000,10 View example of line chart with chart title]
 
-Code to generate the chart:
+Code to generate the chart (_!LineChart type intoduced in v0.5_):
 {{{
-Chart chart = new Chart(ChartType.Line,
-                        new ChartSize(200, 125),
+LineChart chart = new LineChart(new ChartSize(200, 125),
                         new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
 chart.Colors = new ChartColors(Color.DodgerBlue);
 chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 10);
+chart.LineStyles = new LineStyles(new LineStyle(3, 7, 1));
 }}}
 
 == Pie charts ==
