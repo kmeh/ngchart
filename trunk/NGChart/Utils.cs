@@ -20,6 +20,7 @@
 
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 
 namespace NGChart
@@ -37,13 +38,13 @@ namespace NGChart
         public static void AppendAsRGBA(StringBuilder builder, Color color)
         {
             // google wants color in RGBA format
-            builder.AppendFormat("{0:X2}", color.R);
-            builder.AppendFormat("{0:X2}", color.G);
-            builder.AppendFormat("{0:X2}", color.B);
+            builder.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", color.R);
+            builder.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", color.G);
+            builder.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", color.B);
 
             if (color.A != byte.MaxValue)
             {
-                builder.AppendFormat("{0:X2}", color.A);
+                builder.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", color.A);
             }
         }
 

@@ -19,6 +19,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using System.Globalization;
 
 namespace NGChart.Encoders
 {
@@ -85,7 +86,7 @@ namespace NGChart.Encoders
 
             if (! IsRangeValid(number.Value))
                 throw new ArgumentOutOfRangeException("number", 
-                    string.Format("Values should be in [{0}..{1}] range", 
+                    string.Format(CultureInfo.InvariantCulture, "Values should be in [{0}..{1}] range", 
                     MinValidValue, MaxValidValue));
 
             return EncodeNumber(number.Value);

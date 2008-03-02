@@ -18,6 +18,7 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System.Globalization;
 namespace NGChart.Encoders
 {
     /// <summary>
@@ -80,7 +81,7 @@ namespace NGChart.Encoders
         /// <returns>Encoded number</returns>
         protected override string EncodeNumber(float number)
         {
-            return number.ToString("0.0");
+            return number.ToString("0.0", CultureInfo.InvariantCulture);
         }
     }
 }
