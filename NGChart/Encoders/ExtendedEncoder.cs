@@ -18,89 +18,76 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System;
-
 namespace NGChart.Encoders
 {
     /// <summary>
-    /// Base encoder
+    /// 
     /// </summary>
-    public abstract class BaseEncoder<TNumber> where TNumber:struct, IComparable<TNumber>
+    /// <remarks>
+    /// http://code.google.com/apis/chart/#extended
+    /// </remarks>
+    public class ExtendedEncoder : BaseEncoder<int>
     {
-        #region Properties
+        private static readonly char[] c_encodingValues = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.".ToCharArray();
 
         /// <summary>
         /// Prefix for data set
         /// </summary>
-        protected internal abstract string Prefix { get; }
+        protected internal override string Prefix
+        {
+            get { return "e"; }
+        }
 
         /// <summary>
         /// Separator to insert between data sets
         /// </summary>
-        protected internal abstract string DataSetsSeparator { get; }
-        
+        protected internal override string DataSetsSeparator
+        {
+            get { return ","; }
+        }
+
         /// <summary>
         /// Separator to insert between encoded numbers
         /// </summary>
-        protected internal abstract string NumbersSeparator { get; }
+        protected internal override string NumbersSeparator
+        {
+            get { return string.Empty; }
+        }
 
         /// <summary>
         /// String to put instead of missing value
         /// </summary>
-        protected abstract string MissingValue { get; }
+        protected override string MissingValue
+        {
+            get { return "__"; }
+        }
 
         /// <summary>
         /// Minimum valid value
         /// </summary>
-        protected abstract TNumber MinValidValue { get; }
+        protected override int MinValidValue
+        {
+            get { return 0; }
+        }
 
         /// <summary>
         /// Maximum valid value
         /// </summary>
-        public abstract TNumber MaxValidValue { get; }
-
-        #endregion
-
-        #region Methods
+        public override int MaxValidValue
+        {
+            get { return 4095; }
+        }
 
         /// <summary>
         /// Method to encode number
         /// </summary>
         /// <param name="number">Number to encode</param>
         /// <returns>Encoded number</returns>
-        protected abstract string EncodeNumber(TNumber number);
-
-        #endregion
-
-        /// <summary>
-        /// Convert value to string with validation
-        /// </summary>
-        /// <param name="number">Value to convert</param>
-        /// <returns>Converted string</returns>
-        public string Convert(TNumber? number)
+        protected override string EncodeNumber(int number)
         {
-            // special case for missing values
-            if (null == number) 
-                return MissingValue;
-
-            if (! IsRangeValid(number.Value))
-                throw new ArgumentOutOfRangeException("number", 
-                    string.Format("Values should be in [{0}..{1}] range", 
-                    MinValidValue, MaxValidValue));
-
-            return EncodeNumber(number.Value);
-        }
-
-        /// <summary>
-        /// Validate number range
-        /// </summary>
-        /// <param name="number">Number to validate</param>
-        /// <returns>true if number is valid</returns>
-        private bool IsRangeValid(TNumber number)
-        {
-            // ER: to avoid CS0019 compiler error. 
-            // TNumber.CompareTo() is the only way to compare numeric types in generics
-            return (number.CompareTo(MinValidValue) >= 0) && (number.CompareTo(MaxValidValue) <= 0);
+            int upper = number >> 6;
+            int lower = number % 64;
+            return string.Format("{0}{1}", c_encodingValues[upper], c_encodingValues[lower]);
         }
     }
 }

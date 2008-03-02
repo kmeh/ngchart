@@ -38,7 +38,14 @@ namespace NGChart
         /// <param name="sets">Set of data sets</param>
         public ChartData(IEnumerable<IEnumerable<int>> sets)
         {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(sets);
+            if (IsSimpleEncoderEnough(sets))
+            {
+                _processor = new EncodingProcessor<SimpleEncoder, int>(sets);
+            }
+            else
+            {
+                _processor = new EncodingProcessor<ExtendedEncoder, int>(sets);
+            }
         }
 
         /// <summary>
@@ -47,7 +54,14 @@ namespace NGChart
         /// <param name="dataSet">Single data set</param>
         public ChartData(IEnumerable<int> dataSet)
         {
-            _processor = new EncodingProcessor<SimpleEncoder, int>(dataSet);
+            if (IsSimpleEncoderEnough(dataSet))
+            {
+                _processor = new EncodingProcessor<SimpleEncoder, int>(dataSet);
+            }
+            else
+            {
+                _processor = new EncodingProcessor<ExtendedEncoder, int>(dataSet);
+            }
         }
 
         #endregion
@@ -110,5 +124,47 @@ namespace NGChart
 
         #endregion
 
+
+        /// <summary>
+        /// Analyze the incoming dataset to check if Simple Encoding would be enough
+        /// </summary>
+        /// <param name="set">Set to analyze</param>
+        /// <returns>true if the data can be encoded with simple encoding</returns>
+        private static bool IsSimpleEncoderEnough(IEnumerable<int> set)
+        {
+            bool allow = true;
+
+            SimpleEncoder encoder = new SimpleEncoder();
+            foreach (int i in set)
+            {
+                if (i > encoder.MaxValidValue)
+                {
+                    allow = false;
+                    break;
+                }
+            }
+
+            return allow;
+        }
+
+        /// <summary>
+        /// Analyze the incoming datasets to check if Simple Encoding would be enough
+        /// </summary>
+        /// <param name="sets">Sets to analyze</param>
+        /// <returns>true if the data can be encoded with simple encoding</returns>
+        private static bool IsSimpleEncoderEnough(IEnumerable<IEnumerable<int>> sets)
+        {
+            bool allow = true;
+
+            foreach (IEnumerable<int> set in sets)
+            {
+                if (! IsSimpleEncoderEnough(set))
+                {
+                    allow = false;
+                    break;
+                }
+            }
+            return allow;
+        }
     }
 }

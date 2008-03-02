@@ -18,69 +18,43 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-namespace NGChart.Encoders
+using System;
+using NGChart.Encoders;
+using NUnit.Framework;
+
+namespace NGChartTests.Encoding
 {
-    /// <summary>
-    /// Text encoder
-    /// </summary>
-    public class TextEncoder : BaseEncoder<float>
+    [TestFixture]
+    public class ExtendedEncodingTests
     {
-        /// <summary>
-        /// Prefix for data set
-        /// </summary>
-        protected internal override string Prefix
+        [Test]
+        public void TestExtendedEncoding()
         {
-            get { return "t"; }
+            ExtendedEncoder encoder = new ExtendedEncoder();
+
+            Assert.AreEqual("AA", encoder.Convert(0));
+            Assert.AreEqual("Ba", encoder.Convert(90));
+            Assert.AreEqual(".z", encoder.Convert(4083));
+            Assert.AreEqual("..", encoder.Convert(4095));
+            
+            Assert.AreEqual("__", encoder.Convert(null));
         }
 
-        /// <summary>
-        /// String to put instead of missing value
-        /// </summary>
-        protected override string MissingValue
+        [Test]
+        [ExpectedException(ExceptionType = typeof(ArgumentOutOfRangeException))]
+        public void TestSimpleEncodingInvalid1()
         {
-            get { return "-1"; }
+            ExtendedEncoder encoder = new ExtendedEncoder();
+            Assert.AreEqual(encoder.Convert(4096), "9");
         }
 
-        /// <summary>
-        /// Minimum valid value
-        /// </summary>
-        protected override float MinValidValue
+        [Test]
+        [ExpectedException(ExceptionType = typeof(ArgumentOutOfRangeException))]
+        public void TestSimpleEncodingInvalid2()
         {
-            get { return 0f; }
+            ExtendedEncoder encoder = new ExtendedEncoder();
+            Assert.AreEqual(encoder.Convert(-1), "9");
         }
 
-        /// <summary>
-        /// Maximum valid value
-        /// </summary>
-        public override float MaxValidValue
-        {
-            get { return 100f; }
-        }
-
-        /// <summary>
-        /// Separator to insert between data sets
-        /// </summary>
-        protected internal override string DataSetsSeparator
-        {
-            get { return "|"; }
-        }
-
-        /// <summary>
-        /// Separator to insert between encoded numbers
-        /// </summary>
-        protected internal override string NumbersSeparator
-        {
-            get { return ","; }
-        }
-
-        /// <summary>
-        /// Method to encode number
-        /// </summary>
-        /// <param name="number"></param>
-        /// <returns>Encoded number</returns>
-        protected override string EncodeNumber(float number)
-        {
-            return number.ToString("0.0");
-        }
     }
 }
