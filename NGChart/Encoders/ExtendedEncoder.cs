@@ -18,6 +18,8 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System.Globalization;
+
 namespace NGChart.Encoders
 {
     /// <summary>
@@ -87,7 +89,7 @@ namespace NGChart.Encoders
         {
             int upper = number >> 6;
             int lower = number % 64;
-            return string.Format("{0}{1}", c_encodingValues[upper], c_encodingValues[lower]);
+            return string.Format(CultureInfo.InvariantCulture, "{0}{1}", c_encodingValues[upper], c_encodingValues[lower]);
         }
     }
 }

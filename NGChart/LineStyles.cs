@@ -19,6 +19,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace NGChart
 {
@@ -99,7 +100,7 @@ namespace NGChart
         ///<filterpriority>2</filterpriority>
         public override string ToString()
         {
-            return string.Format("{0:0.#},{1:0.#},{2:0.#}", Thickness, LineSegmentLength, BlankSegmentLength);
+            return string.Format(CultureInfo.InvariantCulture, "{0:0.#},{1:0.#},{2:0.#}", Thickness, LineSegmentLength, BlankSegmentLength);
         }
     }
 

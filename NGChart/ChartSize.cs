@@ -19,6 +19,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using System.Globalization;
 
 namespace NGChart
 {
@@ -81,7 +82,7 @@ namespace NGChart
         /// <value></value>
         public override string Data
         {
-            get { return string.Format("{0}x{1}", Width, Height); }
+            get { return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", Width, Height); }
         }
 
         #endregion

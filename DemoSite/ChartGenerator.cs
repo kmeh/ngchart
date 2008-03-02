@@ -67,11 +67,11 @@ namespace Charts
            //                         new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
            //                         Color.DodgerBlue);
 
-            //Chart chart = new Chart(ChartType.Line,
-            //                        new ChartSize(200, 125),
-            //                        new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
-            //chart.Colors = new ChartColors(Color.DodgerBlue);
-            //chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 10);
+            LineChart chart = new LineChart(new ChartSize(200, 125),
+                                        new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
+            chart.Colors = new ChartColors(Color.DodgerBlue);
+            chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 10);
+            chart.LineStyles = new LineStyles(new LineStyle(3, 7, 1));
 
             //BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Vertical,
             //                         new ChartSize(420, 125),
@@ -98,6 +98,7 @@ namespace Charts
             //chart.BarChartSize = new BarChartSize(18, 1);
 
 
+#if false
             ChartData chartData = new ChartData(
                     new float[][] {
                         new float[] { 33f, 99.9f, 55.1f },
@@ -117,6 +118,8 @@ namespace Charts
                                                           new LineStyle(1, 1, 1)
                                                       });
             chart.Legend = new ChartLegend(new string[] {"One", "Two", "Three"});
+
+#endif
 
            return chart.ToString();
         }
