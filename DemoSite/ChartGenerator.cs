@@ -107,8 +107,16 @@ namespace Charts
                 );
 
 
-            Chart chart = new Chart(ChartType.Line, new ChartSize(420, 125), chartData);
-            chart.Colors = new ChartColors(new Color[] {Color.MediumVioletRed, Color.Bisque, Color.Tomato});
+
+            LineChart chart = new LineChart(new ChartSize(420, 125), chartData);
+            chart.Colors = new ChartColors(new Color[] { Color.MediumVioletRed, Color.Bisque, Color.Tomato });
+            chart.LineStyles = new LineStyles(new LineStyle[]
+                                                      {
+                                                          new LineStyle(3, 12, 3.5f), 
+                                                          new LineStyle(1.7f, 2, 2.8f), 
+                                                          new LineStyle(1, 1, 1)
+                                                      });
+            chart.Legend = new ChartLegend(new string[] {"One", "Two", "Three"});
 
            return chart.ToString();
         }
