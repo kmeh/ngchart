@@ -13,7 +13,7 @@ More technical details on encoding you can find at the [http://code.google.com/a
 NGChart supports all encoding types since v.0.5.0.0.
 
 To simplify developer's life NGChart will try to automatically choose the proper encoding.
-You need to create an instance of ChartData class, and pass your dataset to the constructor. 
+You need to create an instance of !ChartData class, and pass your dataset to the constructor. 
 
 Internally it uses the following logic:
 
