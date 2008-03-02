@@ -50,9 +50,12 @@
     <Compile Include="ChartType.cs" />
     <Compile Include="ChartTypeDefinitions.cs" />
     <Compile Include="Encoders\EncodingProcessor.cs" />
+    <Compile Include="Encoders\ExtendedEncoder.cs" />
     <Compile Include="Encoders\SimpleEncoder.cs" />
     <Compile Include="Encoders\TextEncoder.cs" />
     <Compile Include="Encoders\IEncodingProcessor.cs" />
+    <Compile Include="LineChart.cs" />
+    <Compile Include="LineStyles.cs" />
     <Compile Include="PieChart.cs" />
     <Compile Include="PieChartLabels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -66,7 +66,7 @@ namespace NGChart.Encoders
         /// <summary>
         /// Maximum valid value
         /// </summary>
-        protected override int MaxValidValue
+        public override int MaxValidValue
         {
             get { return 61; }
         }
