@@ -33,6 +33,7 @@ namespace NGChart
         /// Line chart
         /// </summary>
         /// <remarks>http://code.google.com/apis/chart/#line_charts</remarks>
+        [Obsolete("Use LineChart class instead. It gives more control over bars customization.")]
         public static ChartType Line
         {
             get
