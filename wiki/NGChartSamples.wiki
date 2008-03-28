@@ -57,7 +57,7 @@ string[] colorNames = Array.ConvertAll<Color, string>(colors,
 
 Code to generate the chart:
 {{{
-Chart chart = new Chart(BarsType.Grouped, BarsDirection.Vertical,
+BarChart chart = new BarChart(BarsType.Grouped, BarsDirection.Vertical,
                          new ChartSize(420, 125),
                          new ChartData(new int[][]
                                            {
