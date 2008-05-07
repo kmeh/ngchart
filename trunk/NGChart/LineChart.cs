@@ -26,7 +26,42 @@ namespace NGChart
     /// <remarks>http://code.google.com/apis/chart/#line_charts</remarks>
     public class LineChart : Chart
     {
+        
         #region Properties
+        private AxisType _axisType;
+
+        public AxisType AxisTypes
+        {
+            get { return _axisType; }
+            set { _axisType = value; }
+        }
+
+        private AxisRange _ranges;
+
+        public AxisRange AxisRanges
+        {
+            get { return _ranges; }
+            set { _ranges = value; }
+        }
+
+        private DataScale _dataScale;
+
+        public DataScale DataScale
+        {
+            get { return _dataScale; }
+            set { _dataScale = value; }
+        }
+
+
+        /// <summary>
+        /// Line chart labels
+        /// </summary>
+        public AxisLabels Labels
+        {
+            get { return _labels; }
+            set { _labels = value; }
+        }
+        private AxisLabels _labels;
 
         protected static ChartType LineTypeDefinition
         {
@@ -54,6 +89,32 @@ namespace NGChart
         public LineChart(ChartSize size, ChartData data) :
             base(LineTypeDefinition, size, data)
         {
+        }
+
+        public LineChart(ChartSize size, ChartData data, AxisType axisTypes, AxisLabels labels)
+            :
+            base(LineTypeDefinition, size, data)
+        {
+            _labels = labels;
+            _axisType = axisTypes;
+        }
+
+        public LineChart(ChartSize size, ChartData data, AxisType axisTypes, AxisLabels labels, DataScale dataScale)
+            :
+            base(LineTypeDefinition, size, data)
+        {
+            _labels = labels;
+            _axisType = axisTypes;
+            _dataScale = dataScale;
+        }
+
+        public LineChart(ChartSize size, ChartData data, AxisType axisTypes, AxisLabels labels, AxisRange ranges)
+            :
+            base(LineTypeDefinition, size, data)
+        {
+            _labels = labels;
+            _axisType = axisTypes;
+            _ranges = ranges;
         }
     }
 }

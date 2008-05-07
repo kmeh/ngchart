@@ -37,8 +37,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AxisRange.cs" />
+    <Compile Include="AxisType.cs" />
     <Compile Include="BarChart.cs" />
     <Compile Include="BarChartSize.cs" />
+    <Compile Include="DataScale.cs" />
     <Compile Include="Encoders\BaseEncoder.cs" />
     <Compile Include="Chart.cs" />
     <Compile Include="ChartColors.cs" />
@@ -56,6 +59,7 @@
     <Compile Include="Encoders\IEncodingProcessor.cs" />
     <Compile Include="LineChart.cs" />
     <Compile Include="LineStyles.cs" />
+    <Compile Include="AxisLabels.cs" />
     <Compile Include="PieChart.cs" />
     <Compile Include="PieChartLabels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
