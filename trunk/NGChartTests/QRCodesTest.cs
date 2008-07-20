@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2007, Eugene Rymski
+// Copyright (c) 2008, Eugene Rymski
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without modification, are permitted 
 //  provided that the following conditions are met:
@@ -18,12 +18,39 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Reflection;
+using NGChart;
+using NUnit.Framework;
 
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("www.digizzle.com")]
-[assembly: AssemblyProduct("NGChart")]
-[assembly: AssemblyCopyright("Copyright © Eugene Rymski 2007, 2008")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+namespace NGChartTests
+{
+    [TestFixture]
+    public class QRCodesTest
+    {
+        [Test]
+        public void GoogleExampleTest()
+        {
+            QRCodes codes = new QRCodes(new ChartSize(150, 150), "hello world", QREncodingType.UTF8);
+            string result = codes.ToString();
 
+            Assert.IsTrue(result.Contains("cht=qr"));
+            Assert.IsTrue(result.Contains("chl=hello%20world"));
+            Assert.IsFalse(result.Contains("choe=UTF-8"), "Default encoding should not be added");
+
+
+            QRCodes codes2 = new QRCodes(new ChartSize(150, 150), "hello world 2", QREncodingType.ISO_8859_1);
+            string result2 = codes2.ToString();
+
+            Assert.IsTrue(result2.Contains("cht=qr"));
+            Assert.IsTrue(result2.Contains("chl=hello%20world%202"));
+            Assert.IsTrue(result2.Contains("choe=ISO-8859-1"));
+        }
+
+        [Test]
+        public void EncodingTypeTests()
+        {
+            Assert.AreEqual("Shift_JIS", QREncodingTypeParam.ConvertEncodingType(QREncodingType.Shift_JIS));
+            Assert.AreEqual("UTF-8", QREncodingTypeParam.ConvertEncodingType(QREncodingType.UTF8));
+            Assert.AreEqual("ISO-8859-1", QREncodingTypeParam.ConvertEncodingType(QREncodingType.ISO_8859_1));
+        }
+    }
+}

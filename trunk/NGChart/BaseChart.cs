@@ -1,4 +1,4 @@
-// Copyright (c) 2007, Eugene Rymski
+// Copyright (c) 2008, Eugene Rymski
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without modification, are permitted 
 //  provided that the following conditions are met:
@@ -18,58 +18,45 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text;
+
 namespace NGChart
 {
     /// <summary>
-    /// Class with chart definition
+    /// Base class for all of the charts
     /// </summary>
-    public class Chart : BaseChart
+    public class BaseChart
     {
-        #region Constants
+        #region Private stuff
+
+        private const string UrlService = "http://chart.apis.google.com/chart?";
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Chart data
+        /// Type of the chart
         /// </summary>
-        public ChartData Data
+        public ChartType Type
         {
-            get { return _data; }
-            set { _data = value; }
+            get { return _type; }
         }
-        private ChartData _data;
+        protected readonly ChartType _type;
 
         /// <summary>
-        /// Chart colors
+        /// Chart size
         /// </summary>
-        public ChartColors Colors
+        public ChartSize Size
         {
-            get { return _colors; }
-            set { _colors = value; }
+            get { return _size; }
+            set { _size = value; }
         }
-        private ChartColors _colors;
 
-        /// <summary>
-        /// Chart title
-        /// </summary>
-        public ChartTitle Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-        private ChartTitle _title;
-
-        /// <summary>
-        /// Chart legend
-        /// </summary>
-        public ChartLegend Legend
-        {
-            get { return _legend; }
-            set { _legend = value; }
-        }
-        private ChartLegend _legend;
+        private ChartSize _size;
 
         #endregion
 
@@ -80,12 +67,49 @@ namespace NGChart
         /// </summary>
         /// <param name="type">Type of the chart</param>
         /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data) : base(type, size)
+        public BaseChart(ChartType type, ChartSize size)
         {
-            _data = data;
+            _type = type;
+            _size = size;
         }
 
         #endregion
+
+        #region Overrides
+
+        public override string ToString()
+        {
+            // ER: think on caching it
+            PropertyInfo[] properties = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
+            Debug.Assert(null != properties);
+
+            StringBuilder builder = new StringBuilder(UrlService, properties.Length * 128);
+
+            // run though all fields with ChartParam type
+            Array.ForEach(properties,
+                delegate(PropertyInfo property)
+                {
+                    if (property.CanRead)
+                    {
+                        // skip properties with null values
+                        ChartParam param = property.GetValue(this, null) as ChartParam;
+                        if (null != param)
+                        {
+                            param.Render(builder);
+                            builder.Append('&');
+                        }
+                    }
+
+                });
+
+            // remove the last amp
+            if (builder.Length > 0)
+                builder.Length--;
+
+            return builder.ToString();
+        }
+
+        #endregion
+
     }
 }

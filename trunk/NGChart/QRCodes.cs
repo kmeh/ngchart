@@ -1,4 +1,4 @@
-// Copyright (c) 2007, Eugene Rymski
+// Copyright (c) 2008, Eugene Rymski
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without modification, are permitted 
 //  provided that the following conditions are met:
@@ -18,74 +18,80 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System.Web;
+
 namespace NGChart
 {
     /// <summary>
-    /// Class with chart definition
+    /// QR Codes are a popular type of two-dimensional barcode, which are also known as hardlinks or physical world hyperlinks.
+    /// 
+    /// http://code.google.com/apis/chart/#qrcodes
     /// </summary>
-    public class Chart : BaseChart
+    public class QRCodes : BaseChart
     {
         #region Constants
+
+        private const QREncodingType DefaultEncoding = QREncodingType.UTF8;
+
+        private static readonly ChartType QRCodeType = new ChartType("qr");
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Chart data
+        /// The chart data
         /// </summary>
-        public ChartData Data
+        public ChartParam Data
         {
-            get { return _data; }
-            set { _data = value; }
+            get { return _data;  }
         }
-        private ChartData _data;
+        private readonly ChartParam _data;
 
         /// <summary>
-        /// Chart colors
+        /// Encoding for the barcode
         /// </summary>
-        public ChartColors Colors
+        public QREncodingTypeParam Encoding
         {
-            get { return _colors; }
-            set { _colors = value; }
+            get { return _encoding; }
         }
-        private ChartColors _colors;
-
-        /// <summary>
-        /// Chart title
-        /// </summary>
-        public ChartTitle Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-        private ChartTitle _title;
-
-        /// <summary>
-        /// Chart legend
-        /// </summary>
-        public ChartLegend Legend
-        {
-            get { return _legend; }
-            set { _legend = value; }
-        }
-        private ChartLegend _legend;
+        private readonly QREncodingTypeParam _encoding;
 
         #endregion
 
         #region Constructor
 
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the <see cref="QRCodes"/> class.
         /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data) : base(type, size)
+        /// <param name="size">The chart size.</param>
+        /// <param name="text">The text to encode.</param>
+        public QRCodes(ChartSize size, string text)
+            : this(size, text, DefaultEncoding)
         {
-            _data = data;
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QRCodes"/> class.
+        /// </summary>
+        /// <param name="size">The chart size.</param>
+        /// <param name="text">The text to encode.</param>
+        /// <param name="encodingType">Type of the encoding.</param>
+        public QRCodes(ChartSize size, string text, QREncodingType encodingType)
+            : base(QRCodeType, size)
+        {
+            _data = new PlainParam("chl", HttpUtility.UrlPathEncode(text));
+
+            // to reduce url length - do not add default encoding parameter
+            if (DefaultEncoding != encodingType)
+            {
+                _encoding = new QREncodingTypeParam(encodingType);
+            }
         }
 
         #endregion
+
+
     }
 }

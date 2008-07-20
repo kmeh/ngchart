@@ -18,7 +18,6 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
 using System.Text;
 
 namespace NGChart
@@ -53,6 +52,12 @@ namespace NGChart
             builder.Append(Data);
         }
 
+        /// <summary>
+        /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder(1024);
