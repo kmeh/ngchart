@@ -1,4 +1,4 @@
-// Copyright (c) 2007, Eugene Rymski
+// Copyright (c) 2008, Eugene Rymski
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without modification, are permitted 
 //  provided that the following conditions are met:
@@ -21,71 +21,37 @@
 namespace NGChart
 {
     /// <summary>
-    /// Class with chart definition
+    /// Simple chart parameter
     /// </summary>
-    public class Chart : BaseChart
+    public class PlainParam : ChartParam
     {
-        #region Constants
-
-        #endregion
-
-        #region Properties
-
         /// <summary>
-        /// Chart data
+        /// Initializes a new instance of the <see cref="PlainParam"/> class.
         /// </summary>
-        public ChartData Data
+        /// <param name="name">The parameter name.</param>
+        /// <param name="data">The parameter data.</param>
+        public PlainParam(string name, string data)
         {
-            get { return _data; }
-            set { _data = value; }
-        }
-        private ChartData _data;
-
-        /// <summary>
-        /// Chart colors
-        /// </summary>
-        public ChartColors Colors
-        {
-            get { return _colors; }
-            set { _colors = value; }
-        }
-        private ChartColors _colors;
-
-        /// <summary>
-        /// Chart title
-        /// </summary>
-        public ChartTitle Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-        private ChartTitle _title;
-
-        /// <summary>
-        /// Chart legend
-        /// </summary>
-        public ChartLegend Legend
-        {
-            get { return _legend; }
-            set { _legend = value; }
-        }
-        private ChartLegend _legend;
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data) : base(type, size)
-        {
+            _name = name;
             _data = data;
         }
 
-        #endregion
+        /// <summary>
+        /// Name of the parameter
+        /// </summary>
+        public override string Name
+        {
+            get { return _name; }
+        }
+        private readonly string _name;
+
+        /// <summary>
+        /// Parameter data
+        /// </summary>
+        public override string Data
+        {
+            get { return _data; }
+        }
+        private readonly string _data;
     }
 }

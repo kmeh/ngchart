@@ -67,11 +67,14 @@ namespace Charts
            //                         new ChartData(new int[] {0, 1, 25, 26, 51, 52, 61, 1}),
            //                         Color.DodgerBlue);
 
+#if false
             LineChart chart = new LineChart(new ChartSize(200, 125),
                                         new ChartData(new int[] { 0, 1, 25, 26, 51, 52, 61, 1 }));
             chart.Colors = new ChartColors(Color.DodgerBlue);
             chart.Title = new ChartTitle("Line chart\nsimple one", Color.Olive, 10);
             chart.LineStyles = new LineStyles(new LineStyle(3, 7, 1));
+
+#endif
 
             //BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Vertical,
             //                         new ChartSize(420, 125),
@@ -120,6 +123,8 @@ namespace Charts
             chart.Legend = new ChartLegend(new string[] {"One", "Two", "Three"});
 
 #endif
+
+            QRCodes chart = new QRCodes(new ChartSize(300, 300), "http://2d-code.co.uk/", QREncodingType.UTF8);
 
            return chart.ToString();
         }

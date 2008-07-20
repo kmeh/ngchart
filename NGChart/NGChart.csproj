@@ -26,11 +26,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +45,7 @@
     <Compile Include="AxisType.cs" />
     <Compile Include="BarChart.cs" />
     <Compile Include="BarChartSize.cs" />
+    <Compile Include="BaseChart.cs" />
     <Compile Include="DataScale.cs" />
     <Compile Include="Encoders\BaseEncoder.cs" />
     <Compile Include="Chart.cs" />
@@ -62,7 +67,10 @@
     <Compile Include="AxisLabels.cs" />
     <Compile Include="PieChart.cs" />
     <Compile Include="PieChartLabels.cs" />
+    <Compile Include="PlainParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QRCodes.cs" />
+    <Compile Include="QREncodingTypeParam.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

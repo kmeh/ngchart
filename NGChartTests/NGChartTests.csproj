@@ -49,6 +49,7 @@
     <Compile Include="LineStylesTest.cs" />
     <Compile Include="PieChartTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QRCodesTest.cs" />
     <Compile Include="SizeTests.cs" />
     <Compile Include="TitleTests.cs" />
     <Compile Include="UtilsTests.cs" />

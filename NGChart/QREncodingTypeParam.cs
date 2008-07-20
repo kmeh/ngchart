@@ -1,4 +1,4 @@
-// Copyright (c) 2007, Eugene Rymski
+// Copyright (c) 2008, Eugene Rymski
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without modification, are permitted 
 //  provided that the following conditions are met:
@@ -18,74 +18,88 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+using System;
+
 namespace NGChart
 {
     /// <summary>
-    /// Class with chart definition
+    /// QR encoding types
     /// </summary>
-    public class Chart : BaseChart
+    public enum QREncodingType
     {
-        #region Constants
-
-        #endregion
-
-        #region Properties
+        /// <summary>
+        /// Shift_JIS encoding
+        /// </summary>
+        Shift_JIS,
 
         /// <summary>
-        /// Chart data
+        /// UTF-8 encoding
         /// </summary>
-        public ChartData Data
-        {
-            get { return _data; }
-            set { _data = value; }
-        }
-        private ChartData _data;
+        UTF8,
 
         /// <summary>
-        /// Chart colors
+        /// ISO-8859-1 encoding
         /// </summary>
-        public ChartColors Colors
-        {
-            get { return _colors; }
-            set { _colors = value; }
-        }
-        private ChartColors _colors;
+        ISO_8859_1
+    }
 
-        /// <summary>
-        /// Chart title
-        /// </summary>
-        public ChartTitle Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-        private ChartTitle _title;
-
-        /// <summary>
-        /// Chart legend
-        /// </summary>
-        public ChartLegend Legend
-        {
-            get { return _legend; }
-            set { _legend = value; }
-        }
-        private ChartLegend _legend;
-
-        #endregion
-
-        #region Constructor
+    /// <summary>
+    /// QR encoding type parameter
+    /// </summary>
+    public class QREncodingTypeParam : ChartParam
+    {
+        private readonly QREncodingType _encoding;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="type">Type of the chart</param>
-        /// <param name="size">Size of the chart</param>
-        /// <param name="data">Chart data</param>
-        public Chart(ChartType type, ChartSize size, ChartData data) : base(type, size)
+        /// <param name="encoding">QR encoding type</param>
+        public QREncodingTypeParam(QREncodingType encoding)
         {
-            _data = data;
+            _encoding = encoding;
         }
 
-        #endregion
+        /// <summary>
+        /// Converts encoding type to its string representation
+        /// </summary>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string ConvertEncodingType(QREncodingType encoding)
+        {
+            string result;
+
+            switch(encoding)
+            {
+                case QREncodingType.Shift_JIS:
+                    result = "Shift_JIS";
+                    break;
+                case QREncodingType.UTF8:
+                    result = "UTF-8";
+                    break;
+                case QREncodingType.ISO_8859_1:
+                    result = "ISO-8859-1";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("encoding");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Name of the parameter
+        /// </summary>
+        public override string Name
+        {
+            get { return "choe"; }
+        }
+
+        /// <summary>
+        /// Parameter data
+        /// </summary>
+        public override string Data
+        {
+            get { return ConvertEncodingType(_encoding); }
+        }
     }
 }

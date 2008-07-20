@@ -147,7 +147,7 @@ namespace NGChart
 
         public LineStyles(LineStyle style)
         {
-            _styles = new LineStyle[] { style }; ;
+            _styles = new LineStyle[] { style };
         }
 
         public LineStyles(IEnumerable<LineStyle> styles)
