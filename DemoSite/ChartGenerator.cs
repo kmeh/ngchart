@@ -21,6 +21,7 @@
 using System;
 using System.Drawing;
 using NGChart;
+using NGChart.QR;
 
 namespace Charts
 {
@@ -124,7 +125,8 @@ namespace Charts
 
 #endif
 
-            QRCodes chart = new QRCodes(new ChartSize(300, 300), "http://2d-code.co.uk/", QREncodingType.UTF8);
+            //QRCodes chart = new QRCodes(new ChartSize(300, 300), "Welcome to Wikipedia, the free encyclopedia that anyone can edit.", EncodingType.UTF8);
+            QRCodes chart = new QRCodes(new ChartSize(150, 150), "Hello world");
 
            return chart.ToString();
         }

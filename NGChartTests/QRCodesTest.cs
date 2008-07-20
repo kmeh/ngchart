@@ -19,6 +19,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 using NGChart;
+using NGChart.QR;
 using NUnit.Framework;
 
 namespace NGChartTests
@@ -29,7 +30,7 @@ namespace NGChartTests
         [Test]
         public void GoogleExampleTest()
         {
-            QRCodes codes = new QRCodes(new ChartSize(150, 150), "hello world", QREncodingType.UTF8);
+            QRCodes codes = new QRCodes(new ChartSize(150, 150), "hello world", EncodingType.UTF8);
             string result = codes.ToString();
 
             Assert.IsTrue(result.Contains("cht=qr"));
@@ -37,20 +38,33 @@ namespace NGChartTests
             Assert.IsFalse(result.Contains("choe=UTF-8"), "Default encoding should not be added");
 
 
-            QRCodes codes2 = new QRCodes(new ChartSize(150, 150), "hello world 2", QREncodingType.ISO_8859_1);
+            QRCodes codes2 = new QRCodes(new ChartSize(150, 150), "hello world 2", EncodingType.ISO_8859_1, ErrorCorrectionLevel.M, 8);
             string result2 = codes2.ToString();
 
             Assert.IsTrue(result2.Contains("cht=qr"));
             Assert.IsTrue(result2.Contains("chl=hello%20world%202"));
             Assert.IsTrue(result2.Contains("choe=ISO-8859-1"));
+            Assert.IsTrue(result2.Contains("chld=M|8"));
         }
 
         [Test]
         public void EncodingTypeTests()
         {
-            Assert.AreEqual("Shift_JIS", QREncodingTypeParam.ConvertEncodingType(QREncodingType.Shift_JIS));
-            Assert.AreEqual("UTF-8", QREncodingTypeParam.ConvertEncodingType(QREncodingType.UTF8));
-            Assert.AreEqual("ISO-8859-1", QREncodingTypeParam.ConvertEncodingType(QREncodingType.ISO_8859_1));
+            Assert.AreEqual("Shift_JIS", EncodingTypeParam.ConvertEncodingType(EncodingType.Shift_JIS));
+            Assert.AreEqual("UTF-8", EncodingTypeParam.ConvertEncodingType(EncodingType.UTF8));
+            Assert.AreEqual("ISO-8859-1", EncodingTypeParam.ConvertEncodingType(EncodingType.ISO_8859_1));
+        }
+
+        [Test]
+        public void QROptionsTest()
+        {
+            QROptions options = new QROptions(ErrorCorrectionLevel.Q, 5);
+            string result = options.ToString();
+
+            Assert.AreEqual("chld=Q|5", result);
+
+            QROptions minMargin = new QROptions(ErrorCorrectionLevel.H, 2);
+            Assert.AreEqual("H|4", minMargin.Data, "Margin should not be less than minimal possible value");
         }
     }
 }
