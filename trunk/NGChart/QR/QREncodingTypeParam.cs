@@ -18,80 +18,88 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-using System.Web;
+using System;
 
-namespace NGChart
+namespace NGChart.QR
 {
     /// <summary>
-    /// QR Codes are a popular type of two-dimensional barcode, which are also known as hardlinks or physical world hyperlinks.
-    /// 
-    /// http://code.google.com/apis/chart/#qrcodes
+    /// QR encoding types
     /// </summary>
-    public class QRCodes : BaseChart
+    public enum EncodingType
     {
-        #region Constants
-
-        private const QREncodingType DefaultEncoding = QREncodingType.UTF8;
-
-        private static readonly ChartType QRCodeType = new ChartType("qr");
-
-        #endregion
-
-        #region Properties
+        /// <summary>
+        /// Shift_JIS encoding
+        /// </summary>
+        Shift_JIS,
 
         /// <summary>
-        /// The chart data
+        /// UTF-8 encoding
         /// </summary>
-        public ChartParam Data
-        {
-            get { return _data;  }
-        }
-        private readonly ChartParam _data;
+        UTF8,
 
         /// <summary>
-        /// Encoding for the barcode
+        /// ISO-8859-1 encoding
         /// </summary>
-        public QREncodingTypeParam Encoding
-        {
-            get { return _encoding; }
-        }
-        private readonly QREncodingTypeParam _encoding;
+        ISO_8859_1
+    }
 
-        #endregion
-
-        #region Constructor
+    /// <summary>
+    /// QR encoding type parameter
+    /// </summary>
+    public class EncodingTypeParam : ChartParam
+    {
+        private readonly EncodingType _encoding;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QRCodes"/> class.
+        /// Constructor
         /// </summary>
-        /// <param name="size">The chart size.</param>
-        /// <param name="text">The text to encode.</param>
-        public QRCodes(ChartSize size, string text)
-            : this(size, text, DefaultEncoding)
+        /// <param name="encoding">QR encoding type</param>
+        public EncodingTypeParam(EncodingType encoding)
         {
-
+            _encoding = encoding;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QRCodes"/> class.
+        /// Converts encoding type to its string representation
         /// </summary>
-        /// <param name="size">The chart size.</param>
-        /// <param name="text">The text to encode.</param>
-        /// <param name="encodingType">Type of the encoding.</param>
-        public QRCodes(ChartSize size, string text, QREncodingType encodingType)
-            : base(QRCodeType, size)
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string ConvertEncodingType(EncodingType encoding)
         {
-            _data = new PlainParam("chl", HttpUtility.UrlPathEncode(text));
+            string result;
 
-            // to reduce url length - do not add default encoding parameter
-            if (DefaultEncoding != encodingType)
+            switch(encoding)
             {
-                _encoding = new QREncodingTypeParam(encodingType);
+                case EncodingType.Shift_JIS:
+                    result = "Shift_JIS";
+                    break;
+                case EncodingType.UTF8:
+                    result = "UTF-8";
+                    break;
+                case EncodingType.ISO_8859_1:
+                    result = "ISO-8859-1";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("encoding");
             }
+
+            return result;
         }
 
-        #endregion
+        /// <summary>
+        /// Name of the parameter
+        /// </summary>
+        public override string Name
+        {
+            get { return "choe"; }
+        }
 
-
+        /// <summary>
+        /// Parameter data
+        /// </summary>
+        public override string Data
+        {
+            get { return ConvertEncodingType(_encoding); }
+        }
     }
 }

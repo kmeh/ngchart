@@ -1,5 +1,8 @@
 NGChart change log (http://code.google.com/p/ngchart/)
 
+=== Jul 20, 2008
+ * Added support for QR codes (two-dimensional barcode).
+
 === Mar 02, 2008
  * Automatically choose between Simple and Extended encoding
  * Line charts are separate type now (old way of line charts creating is marked as obsolete now)
