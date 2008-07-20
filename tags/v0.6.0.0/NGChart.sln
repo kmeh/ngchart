@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGChart", "NGChart\NGChart.csproj", "{4A57DAF4-CAB2-4334-9FB3-E4F057CF5053}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGChartTests", "NGChartTests\NGChartTests.csproj", "{EDD55A48-610A-4693-99D5-9F0922D4D084}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charts", "DemoSite\Charts.csproj", "{EEDC9DA8-15CA-46F7-9FBB-C1389BBDEA3D}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A57DAF4-CAB2-4334-9FB3-E4F057CF5053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A57DAF4-CAB2-4334-9FB3-E4F057CF5053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A57DAF4-CAB2-4334-9FB3-E4F057CF5053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A57DAF4-CAB2-4334-9FB3-E4F057CF5053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD55A48-610A-4693-99D5-9F0922D4D084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD55A48-610A-4693-99D5-9F0922D4D084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD55A48-610A-4693-99D5-9F0922D4D084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD55A48-610A-4693-99D5-9F0922D4D084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEDC9DA8-15CA-46F7-9FBB-C1389BBDEA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEDC9DA8-15CA-46F7-9FBB-C1389BBDEA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEDC9DA8-15CA-46F7-9FBB-C1389BBDEA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEDC9DA8-15CA-46F7-9FBB-C1389BBDEA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
