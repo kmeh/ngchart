@@ -85,6 +85,12 @@ BarChart chart = new BarChart(BarsType.Stacked, BarsDirection.Horizontal,
 chart.Colors = new ChartColors(new Color[] { Color.DodgerBlue, Color.YellowGreen });
 chart.Legend = new ChartLegend(new string[] { "Winter", "Summer" });
 chart.BarChartSize = new BarChartSize(18, 1);
+}}}
 
+=== QR codes ===
+[http://chart.apis.google.com/chart?chl=Hello%20world&cht=qr&chs=150x150 View QR codes example]
 
+Code to generate the QR codes:
+{{{
+QRCodes chart = new QRCodes(new ChartSize(150, 150), "Hello world");
 }}}
